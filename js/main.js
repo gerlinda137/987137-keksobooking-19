@@ -47,13 +47,13 @@ var getRandomArrayElement = function (array) {
 };
 
 var getRandomArrayElements = function (array) {
-  var result = [];
+  var results = [];
   for (var i = 0; i < array.length; i++) {
     if (Math.random() > 0.5) {
-      result.push(array[i]);
+      results.push(array[i]);
     }
   }
-  return result;
+  return results;
 };
 var generateAdvertisement = function (index) {
   var coordinate = {
@@ -82,10 +82,10 @@ var generateAdvertisement = function (index) {
   };
 };
 
-var generateNumberOfAdvertisement = function (advertisementAmount) {
+var generateAdvers = function (num) {
   var advertisements = [];
-  for (var i = 0; i < advertisementAmount; i++) {
-    advertisements.push(generateAdvertisement(i + 1));
+  for (var i = 1; i < num; i++) {
+    advertisements.push(generateAdvertisement(i));
   }
   return advertisements;
 };
@@ -96,22 +96,35 @@ var pinTemplate = document.querySelector('#pin')
 
 var renderAdvertisement = function (advertisement) {
   var pin = pinTemplate.cloneNode(true);
-  pin.style = 'left: ' + (advertisement.location.x - (pinTemplate.offsetWidth * 0.5)) + 'px;' + 'top: ' + (advertisement.location.y - (pinTemplate.offsetHeight * 0.5)) + 'px;';
-
   var avatar = pin.querySelector('img');
   avatar.src = advertisement.author.avatar;
   avatar.alt = advertisement.offer.title;
   return pin;
 };
 
-var advertisements = generateNumberOfAdvertisement(ADVERTISEMENT_AMOUNT);
 
-var documentFragment = document.createDocumentFragment();
-for (var i = 0; i < advertisements.length; i++) {
-  documentFragment.appendChild(renderAdvertisement(advertisements[i]));
-}
+var addingAdvertisementsToMap = function (ads) {
+  var fragment = document.createDocumentFragment();
+  var renderedAds = [];
+  for (var i = 0; i < ads.length; i++) {
+    var renderedAd = renderAdvertisement(ads[i]);
+    fragment.appendChild(renderedAd);
+    renderedAds.push(renderedAd);
+  }
 
-mapPinsContainer.appendChild(documentFragment);
+  mapPinsContainer.appendChild(fragment);
+  var pins = mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+  for (var j = 0; j < pins.length; j++) {
+    var pin = pins[j];
+    pin.style.left = (ads[j].location.x - (pin.offsetWidth * 0.5)) + 'px';
+    pin.style.top = (ads[j].location.y - (pin.offsetHeight * 0.5)) + 'px';
+  }
+
+};
+
+var advertisements = generateAdvers(ADVERTISEMENT_AMOUNT);
+addingAdvertisementsToMap(advertisements);
 
 
 var map = document.querySelector('.map');
