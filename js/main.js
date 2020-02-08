@@ -55,7 +55,7 @@ var getRandomArrayElements = function (array) {
   }
   return results;
 };
-var generateAdvertisement = function (index) {
+var generateAdvert = function (id) {
   var coordinate = {
     x: getRandomInteger(0, mapPinsContainer.offsetWidth),
     y: getRandomInteger(130, 630),
@@ -63,7 +63,7 @@ var generateAdvertisement = function (index) {
 
   return {
     author: {
-      avatar: 'img/avatars/user0' + index + '.png',
+      avatar: 'img/avatars/user0' + id + '.png',
     },
     location: coordinate,
     offer: {
@@ -83,22 +83,22 @@ var generateAdvertisement = function (index) {
 };
 
 var generateAdvers = function (num) {
-  var advertisements = [];
-  for (var i = 1; i < num; i++) {
-    advertisements.push(generateAdvertisement(i));
+  var adverts = [];
+  for (var i = 1; i <= num; i++) {
+    adverts.push(generateAdvert(i));
   }
-  return advertisements;
+  return adverts;
 };
 
 var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 
-var renderAdvertisement = function (advertisement) {
+var renderPin = function (advert) {
   var pin = pinTemplate.cloneNode(true);
   var avatar = pin.querySelector('img');
-  avatar.src = advertisement.author.avatar;
-  avatar.alt = advertisement.offer.title;
+  avatar.src = advert.author.avatar;
+  avatar.alt = advert.offer.title;
   return pin;
 };
 
@@ -107,7 +107,7 @@ var addingAdvertisementsToMap = function (ads) {
   var fragment = document.createDocumentFragment();
   var renderedAds = [];
   for (var i = 0; i < ads.length; i++) {
-    var renderedAd = renderAdvertisement(ads[i]);
+    var renderedAd = renderPin(ads[i]);
     fragment.appendChild(renderedAd);
     renderedAds.push(renderedAd);
   }
