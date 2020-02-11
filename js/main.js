@@ -192,14 +192,51 @@ mapPin.addEventListener('keydown', function (evt) {
 
 var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
-roomNumber.addEventListener('change', function () {
-  if (roomNumber.options[roomNumber.selectedIndex].value === '100') {
+
+var validateRoomsAndCapacity = function () {
+  for (var l = 0; l < capacity.options.length; l++) {
+    capacity.options[l].removeAttribute('disabled', 'disabled');
+  }
+  var currentRoomNumberValue = roomNumber.options[roomNumber.selectedIndex].value;
+  var currentRoomNumberValueNum = Number.parseInt(roomNumber.options[roomNumber.selectedIndex].value, 10);
+  if (currentRoomNumberValue === '100') {
     for (var i = 0; i < capacity.options.length; i++) {
       if (capacity.options[i].value !== '0') {
         capacity.options[i].setAttribute('disabled', 'disabled');
       } else {
-        capacity.options[i].setAttribute('selected', 'selected');
+        capacity.selectedIndex = i;
+      }
+    }
+  } else if (currentRoomNumberValueNum === 1) {
+    for (var j = 0; j < capacity.options.length; j++) {
+      var capacityValueNum1 = Number.parseInt(capacity.options[j].value, 10);
+      if (capacityValueNum1 !== 1) {
+        capacity.options[j].setAttribute('disabled', 'disabled');
+      } else {
+        capacity.selectedIndex = j;
+      }
+    }
+  } else if (currentRoomNumberValueNum === 2) {
+    for (var k = 0; k < capacity.options.length; k++) {
+      var capacityValueNum2 = Number.parseInt(capacity.options[k].value, 10);
+      if (capacityValueNum2 !== 2 && capacityValueNum2 !== 1) {
+        capacity.options[k].setAttribute('disabled', 'disabled');
+      } else {
+        capacity.selectedIndex = k;
+      }
+    }
+  } else if (currentRoomNumberValueNum === 3) {
+    for (var m = 0; m < capacity.options.length; m++) {
+      var capacityValueNum3 = Number.parseInt(capacity.options[m].value, 10);
+      if (capacityValueNum3 === 0) {
+        capacity.options[m].setAttribute('disabled', 'disabled');
+      } else {
+        capacity.selectedIndex = m;
       }
     }
   }
-});
+};
+
+
+roomNumber.addEventListener('change', validateRoomsAndCapacity);
+validateRoomsAndCapacity();
