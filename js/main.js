@@ -107,16 +107,16 @@ var renderPin = function (advert) {
 };
 
 
-var addingAdvertisementsToMap = function (ads) {
+var addPins = function (ads) {
   var fragment = document.createDocumentFragment();
-  var renderedAds = [];
   for (var i = 0; i < ads.length; i++) {
     var renderedAd = renderPin(ads[i]);
     fragment.appendChild(renderedAd);
-    renderedAds.push(renderedAd);
   }
-
   mapPinsContainer.appendChild(fragment);
+};
+
+var setPinsLocation = function (ads) {
   var pins = mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
 
   for (var j = 0; j < pins.length; j++) {
@@ -156,7 +156,8 @@ var activatePage = function () {
   adForm.classList.remove('ad-form--disabled');
 
   var advertisements = generateAdvers(ADVERTISEMENT_AMOUNT);
-  addingAdvertisementsToMap(advertisements);
+  addPins(advertisements);
+  setPinsLocation(advertisements);
 };
 
 var mapPin = document.querySelector('.map__pin--main');
