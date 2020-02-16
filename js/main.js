@@ -127,10 +127,6 @@ var addingAdvertisementsToMap = function (ads) {
 
 };
 
-var advertisements = generateAdvers(ADVERTISEMENT_AMOUNT);
-addingAdvertisementsToMap(advertisements);
-
-
 var adForm = document.querySelector('.ad-form');
 var inputs = adForm.querySelectorAll('input, select, fieldset');
 var map = document.querySelector('.map');
@@ -139,25 +135,28 @@ var mapFiltersInputs = mapFilters.querySelectorAll('input, select, fieldset');
 
 var disactivatePage = function () {
   inputs.forEach(function (element) {
-    element.setAttribute('disabled', 'disabled');
+    element.disabled = true;
   });
 
   mapFiltersInputs.forEach(function (element) {
-    element.setAttribute('disabled', 'disabled');
+    element.disabled = true;
   });
 };
 
 var activatePage = function () {
   inputs.forEach(function (element) {
-    element.removeAttribute('disabled');
+    element.disabled = false;
   });
 
   mapFiltersInputs.forEach(function (element) {
-    element.removeAttribute('disabled');
+    element.disabled = false;
   });
 
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
+
+  var advertisements = generateAdvers(ADVERTISEMENT_AMOUNT);
+  addingAdvertisementsToMap(advertisements);
 };
 
 var mapPin = document.querySelector('.map__pin--main');
@@ -215,27 +214,18 @@ var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
 var validateRoomsAndCapacity = function () {
-  for (var l = 0; l < capacity.options.length; l++) {
-    capacity.options[l].removeAttribute('disabled');
-  }
-  var currentRoomNumberValue = roomNumber.options[roomNumber.selectedIndex].value;
-  var currentRoomNumberValueNum = +currentRoomNumberValue;
-  if (currentRoomNumberValue === '100') {
-    for (var i = 0; i < capacity.options.length; i++) {
-      if (capacity.options[i].value !== '0') {
-        capacity.options[i].setAttribute('disabled', 'disabled');
-      } else {
-        capacity.selectedIndex = i;
-      }
-    }
-  } else {
-    for (var j = 0; j < capacity.options.length; j++) {
-      var capacityValueNum = Number.parseInt(capacity.options[j].value, 10);
-      if (capacityValueNum > currentRoomNumberValueNum || capacityValueNum === 0) {
-        capacity.options[j].setAttribute('disabled', 'disabled');
-      } else {
-        capacity.selectedIndex = j;
-      }
+  var roomsNum = +roomNumber.value;
+
+  for (var i = 0; i < capacity.options.length; i++) {
+    var option = capacity.options[i];
+    var guestsNum = +option.value;
+
+    var enabled = (roomsNum === 100 && guestsNum === 0) || (guestsNum <= roomsNum && guestsNum !== 0);
+
+    option.disabled = !enabled;
+
+    if (enabled) {
+      capacity.selectedIndex = i;
     }
   }
 };
