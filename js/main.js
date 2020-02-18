@@ -163,27 +163,30 @@ var MainPinSize = {
   RADIUS: 32,
 };
 
+
 var getPinPosition = function () {
-  var left = mapPin.offsetLeft;
-  var top = mapPin.offsetTop;
-  return {left: left, top: top};
+  return {
+    left: mapPin.offsetLeft + 0.5 * MainPinSize.WIDTH,
+    top: mapPin.offsetTop + MainPinSize.HEIGHT,
+  };
 };
 
-var getPinAddress = function () {
-  var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + 0.5 * MainPinSize.WIDTH)) + ', ' + Math.floor((pinPos.top + MainPinSize.HEIGHT));
+var getCenterPinPosition = function () {
+  return {
+    left: mapPin.offsetLeft + MainPinSize.RADIUS,
+    top: mapPin.offsetTop + MainPinSize.RADIUS,
+  };
 };
 
-var getCenterPinAddress = function () {
-  var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + MainPinSize.RADIUS)) + ', ' + Math.floor((pinPos.top + MainPinSize.RADIUS));
+var convertPinPositionToString = function (pinPosition) {
+  return Math.floor(pinPosition.left) + ', ' + Math.floor(pinPosition.top);
 };
 
 var addressInput = adForm.querySelector('#address');
-addressInput.value = getCenterPinAddress();
+addressInput.value = convertPinPositionToString(getCenterPinPosition());
 
 var changeAddressValue = function () {
-  addressInput.value = getPinAddress();
+  addressInput.value = convertPinPositionToString(getPinPosition());
 };
 
 
