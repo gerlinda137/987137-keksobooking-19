@@ -196,8 +196,8 @@ var activatePageAndChangeAddress = function () {
 var onMapPinMouseDown = function (evt) {
   if (evt.button === MAIN_BUTTON) {
     activatePageAndChangeAddress();
+    mapPin.removeEventListener('mousedown', onMapPinMouseDown);
   }
-  mapPin.removeEventListener('mousedown', onMapPinMouseDown);
 };
 
 mapPin.addEventListener('mousedown', onMapPinMouseDown);
@@ -205,8 +205,8 @@ mapPin.addEventListener('mousedown', onMapPinMouseDown);
 var onMapPinKeyDown = function (evt) {
   if (evt.key === ENTER_KEY) {
     activatePageAndChangeAddress();
+    mapPin.removeEventListener('keydown', onMapPinKeyDown);
   }
-  mapPin.removeEventListener('keydown', onMapPinKeyDown);
 };
 
 mapPin.addEventListener('keydown', onMapPinKeyDown);
