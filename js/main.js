@@ -215,13 +215,14 @@ var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
 
 var validateRoomsAndCapacity = function () {
-  var roomsNum = +roomNumber.value;
+  var roomsNumber = +roomNumber.value;
 
   for (var i = 0; i < capacity.options.length; i++) {
     var option = capacity.options[i];
-    var guestsNum = +option.value;
+    var guestsNumber = +option.value;
 
-    var enabled = (roomsNum === 100 && guestsNum === 0) || (guestsNum <= roomsNum && guestsNum !== 0);
+    var enabled = (roomsNumber === 100 && guestsNumber === 0) ||
+                  (roomsNumber !== 100 && guestsNumber !== 0 && guestsNumber <= roomsNumber);
 
     option.disabled = !enabled;
 
