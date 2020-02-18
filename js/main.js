@@ -107,10 +107,10 @@ var renderPin = function (advert) {
 };
 
 
-var addPins = function (ads) {
+var addPins = function (adverts) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < ads.length; i++) {
-    var renderedAd = renderPin(ads[i]);
+  for (var i = 0; i < adverts.length; i++) {
+    var renderedAd = renderPin(adverts[i]);
     fragment.appendChild(renderedAd);
   }
   mapPinsContainer.appendChild(fragment);
@@ -155,9 +155,9 @@ var activatePage = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
-  var advertisements = generateAdvers(ADVERTISEMENT_AMOUNT);
-  addPins(advertisements);
-  setPinsLocation(advertisements);
+  var adverts = generateAdvers(ADVERTISEMENT_AMOUNT);
+  addPins(adverts);
+  setPinsLocation(adverts);
 };
 
 var mapPin = document.querySelector('.map__pin--main');
