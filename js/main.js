@@ -188,15 +188,10 @@ var changeAddressValue = function () {
   addressInput.value = getPinAddress();
 };
 
-var activatePageAndChangeAddress = function () {
-  activatePage();
-  changeAddressValue();
-};
 
 var onMapPinMouseDown = function (evt) {
   if (evt.button === MAIN_BUTTON) {
-    activatePageAndChangeAddress();
-    mapPin.removeEventListener('mousedown', onMapPinMouseDown);
+    intialActivatePage();
   }
 };
 
@@ -204,12 +199,18 @@ mapPin.addEventListener('mousedown', onMapPinMouseDown);
 
 var onMapPinKeyDown = function (evt) {
   if (evt.key === ENTER_KEY) {
-    activatePageAndChangeAddress();
-    mapPin.removeEventListener('keydown', onMapPinKeyDown);
+    intialActivatePage();
   }
 };
 
 mapPin.addEventListener('keydown', onMapPinKeyDown);
+
+var intialActivatePage = function () {
+  activatePage();
+  changeAddressValue();
+  mapPin.removeEventListener('mousedown', onMapPinMouseDown);
+  mapPin.removeEventListener('keydown', onMapPinKeyDown);
+};
 
 var roomNumber = adForm.querySelector('#room_number');
 var capacity = adForm.querySelector('#capacity');
