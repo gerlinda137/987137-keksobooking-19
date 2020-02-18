@@ -40,6 +40,11 @@ var ENTER_KEY = 'Enter';
 
 var MAIN_BUTTON = 0;
 
+var PinSize = {
+  HEIGHT: 70,
+  RADIUS: 50 / 2,
+};
+
 var mapPinsContainer = document.querySelector('.map__pins');
 
 var getRandomInteger = function (min, max) {
@@ -101,6 +106,8 @@ var pinTemplate = document.querySelector('#pin')
 var renderPin = function (advert) {
   var pin = pinTemplate.cloneNode(true);
   var avatar = pin.querySelector('img');
+  pin.style.left = (advert.location.x - PinSize.RADIUS) + 'px';
+  pin.style.top = (advert.location.y - PinSize.HEIGHT) + 'px';
   avatar.src = advert.author.avatar;
   avatar.alt = advert.offer.title;
   return pin;
@@ -114,17 +121,6 @@ var addPins = function (adverts) {
     fragment.appendChild(renderedAd);
   }
   mapPinsContainer.appendChild(fragment);
-};
-
-var setPinsLocation = function (ads) {
-  var pins = mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-  for (var j = 0; j < pins.length; j++) {
-    var pin = pins[j];
-    pin.style.left = (ads[j].location.x - (pin.offsetWidth * 0.5)) + 'px';
-    pin.style.top = (ads[j].location.y - (pin.offsetHeight * 0.5)) + 'px';
-  }
-
 };
 
 var adForm = document.querySelector('.ad-form');
@@ -157,13 +153,15 @@ var activatePage = function () {
 
   var adverts = generateAdvers(ADVERTISEMENT_AMOUNT);
   addPins(adverts);
-  setPinsLocation(adverts);
 };
 
 var mapPin = document.querySelector('.map__pin--main');
 
-var MAP_PIN_WIDTH = mapPin.offsetWidth;
-var MAP_PIN_HEIGHT = mapPin.offsetHeight;
+var MainPinSize = {
+  WIDTH: 65,
+  HEIGHT: 80,
+  RADIUS: 32,
+};
 
 var getPinPosition = function () {
   var left = mapPin.offsetLeft;
@@ -173,12 +171,12 @@ var getPinPosition = function () {
 
 var getPinAddress = function () {
   var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + 0.5 * MAP_PIN_WIDTH)) + ', ' + Math.floor((pinPos.top - MAP_PIN_HEIGHT));
+  return Math.floor((pinPos.left + 0.5 * MainPinSize.WIDTH)) + ', ' + Math.floor((pinPos.top + MainPinSize.HEIGHT));
 };
 
 var getCenterPinAddress = function () {
   var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + 0.5 * MAP_PIN_WIDTH)) + ', ' + Math.floor((pinPos.top - 0.5 * MAP_PIN_HEIGHT));
+  return Math.floor((pinPos.left + MainPinSize.RADIUS)) + ', ' + Math.floor((pinPos.top + MainPinSize.RADIUS));
 };
 
 var addressInput = adForm.querySelector('#address');
