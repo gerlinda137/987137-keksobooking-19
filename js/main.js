@@ -6,35 +6,6 @@ var ENTER_KEY = 'Enter';
 
 var MAIN_BUTTON = 0;
 
-var PinSize = {
-  HEIGHT: 70,
-  RADIUS: 50 / 2,
-};
-
-var mapPinsContainer = document.querySelector('.map__pins');
-var pinTemplate = document.querySelector('#pin')
-  .content
-  .querySelector('.map__pin');
-
-var renderPin = function (advert) {
-  var pin = pinTemplate.cloneNode(true);
-  var avatar = pin.querySelector('img');
-  pin.style.left = (advert.location.x - PinSize.RADIUS) + 'px';
-  pin.style.top = (advert.location.y - PinSize.HEIGHT) + 'px';
-  avatar.src = advert.author.avatar;
-  avatar.alt = advert.offer.title;
-  return pin;
-};
-
-
-var addPins = function (adverts) {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < adverts.length; i++) {
-    var renderedAd = renderPin(adverts[i]);
-    fragment.appendChild(renderedAd);
-  }
-  mapPinsContainer.appendChild(fragment);
-};
 
 var adForm = document.querySelector('.ad-form');
 var inputs = adForm.querySelectorAll('input, select, fieldset');
@@ -65,7 +36,7 @@ var activatePage = function () {
   adForm.classList.remove('ad-form--disabled');
 
   var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
-  addPins(adverts);
+  window.addPins(adverts);
 };
 
 var mapPin = document.querySelector('.map__pin--main');
