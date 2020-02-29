@@ -9,7 +9,7 @@ var MAIN_BUTTON = 0;
 
 var adForm = document.querySelector('.ad-form');
 var inputs = adForm.querySelectorAll('input, select, fieldset');
-var map = document.querySelector('.map');
+var mapElement = document.querySelector('.map');
 var mapFilters = document.querySelector('.map__filters');
 var mapFiltersInputs = mapFilters.querySelectorAll('input, select, fieldset');
 
@@ -31,43 +31,11 @@ var activatePage = function () {
   mapFiltersInputs.forEach(function (element) {
     element.disabled = false;
   });
-
-  map.classList.remove('map--faded');
+  mapElement.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
   var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
-  window.addPins(adverts);
-};
-
-var mapPin = document.querySelector('.map__pin--main');
-
-var MainPinSize = {
-  WIDTH: 65,
-  HEIGHT: 80,
-  RADIUS: 32,
-};
-
-var getPinPosition = function () {
-  var left = mapPin.offsetLeft;
-  var top = mapPin.offsetTop;
-  return {left: left, top: top};
-};
-
-var getPinAddress = function () {
-  var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + 0.5 * MainPinSize.WIDTH)) + ', ' + Math.floor((pinPos.top + MainPinSize.HEIGHT));
-};
-
-var getCenterPinAddress = function () {
-  var pinPos = getPinPosition();
-  return Math.floor((pinPos.left + MainPinSize.RADIUS)) + ', ' + Math.floor((pinPos.top + MainPinSize.RADIUS));
-};
-
-var addressInput = adForm.querySelector('#address');
-addressInput.value = getCenterPinAddress();
-
-var changeAddressValue = function () {
-  addressInput.value = getPinAddress();
+  window.map.addPins(adverts);
 };
 
 
@@ -76,6 +44,8 @@ var onMapPinMouseDown = function (evt) {
     intialActivatePage();
   }
 };
+
+var mapPin = document.querySelector('.map__pin--main');
 
 mapPin.addEventListener('mousedown', onMapPinMouseDown);
 
@@ -89,10 +59,9 @@ mapPin.addEventListener('keydown', onMapPinKeyDown);
 
 var intialActivatePage = function () {
   activatePage();
-  changeAddressValue();
+  window.form.changeAddressValue();
   mapPin.removeEventListener('mousedown', onMapPinMouseDown);
   mapPin.removeEventListener('keydown', onMapPinKeyDown);
 };
-
 
 deactivatePage();

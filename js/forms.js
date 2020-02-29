@@ -38,4 +38,16 @@
 
   roomNumber.addEventListener('change', onRoomNumberChange);
   validateRoomsAndCapacity();
+
+  var addressInput = adForm.querySelector('#address');
+  addressInput.value = window.map.getCenterPinAddress();
+
+  var changeAddressValue = function () {
+    addressInput.value = window.map.getPinAddress();
+  };
+
+  window.form = {
+    addressInput: addressInput,
+    changeAddressValue: changeAddressValue,
+  };
 })();
