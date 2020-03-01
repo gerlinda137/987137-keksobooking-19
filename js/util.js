@@ -15,5 +15,9 @@
     setDisabled: function (element) {
       element.disabled = true;
     },
+
+    unsetDisabled: function (element) {
+      element.disabled = false;
+    },
   };
 })();

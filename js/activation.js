@@ -27,9 +27,7 @@
     }
   };
   var activatePage = function () {
-    inputs.forEach(function (element) {
-      element.disabled = false;
-    });
+    inputs.forEach(window.util.unsetDisabled);
 
     mapFiltersInputs.forEach(function (element) {
       element.disabled = false;
