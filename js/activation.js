@@ -4,7 +4,7 @@
 
   var adForm = document.querySelector('.ad-form');
   var inputs = adForm.querySelectorAll('input, select, fieldset');
-  var mapElement = document.querySelector('.map');
+  var map = document.querySelector('.map');
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select, fieldset');
 
@@ -36,7 +36,7 @@
     mapFiltersInputs.forEach(function (element) {
       element.disabled = false;
     });
-    mapElement.classList.remove('map--faded');
+    map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
 
     var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
