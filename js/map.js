@@ -32,22 +32,21 @@
     return {left: left, top: top};
   };
 
-  var getPinAddress = function () {
-    var pinPos = window.map.getPinPosition();
+  var getPinAddressPrototype = function (xCorrection, yCorrection) {
+    var pinPos = getPinPosition();
     return (
-      Math.floor(pinPos.left + 0.5 * MainPinSize.WIDTH) +
+      Math.floor(pinPos.left + xCorrection) +
       ', ' +
-      Math.floor(pinPos.top + MainPinSize.HEIGHT)
+      Math.floor(pinPos.top + yCorrection)
     );
   };
 
+  var getPinAddress = function () {
+    return getPinAddressPrototype(0.5 * MainPinSize.WIDTH, MainPinSize.HEIGHT);
+  };
+
   var getCenterPinAddress = function () {
-    var pinPos = getPinPosition();
-    return (
-      Math.floor(pinPos.left + MainPinSize.RADIUS) +
-      ', ' +
-      Math.floor(pinPos.top + MainPinSize.RADIUS)
-    );
+    return getPinAddressPrototype(MainPinSize.RADIUS, MainPinSize.RADIUS);
   };
 
   window.map = {
