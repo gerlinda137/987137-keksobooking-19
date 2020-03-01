@@ -11,5 +11,9 @@
     isMainMouseButton: function (evt) {
       return evt.button === MAIN_BUTTON;
     },
+
+    setDisabled: function (element) {
+      element.disabled = true;
+    },
   };
 })();

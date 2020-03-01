@@ -9,9 +9,7 @@
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select, fieldset');
 
   var deactivatePage = function () {
-    inputs.forEach(function (element) {
-      element.disabled = true;
-    });
+    inputs.forEach(window.util.setDisabled);
 
     mapFiltersInputs.forEach(function (element) {
       element.disabled = true;
