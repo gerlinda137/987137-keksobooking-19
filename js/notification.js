@@ -14,23 +14,21 @@
     100: ['0']
   };
 
+  var capacityToIndex = {};
+  capacityList.forEach(function (option) {
+    capacityToIndex[option.value] = option.index;
+  });
+
   var validateRoomsAndCapacity = function () {
     var options = roomToCapacity[roomNumber.value];
 
-    var firstSelectedIndex = -1;
-
-    capacityList.forEach(function (option, i) {
-      var enabled = options.includes(option.value);
-      option.disabled = !enabled;
-
-      if (enabled && firstSelectedIndex === -1) {
-        firstSelectedIndex = i;
-      }
-    });
-
-    if (firstSelectedIndex !== -1) {
-      capacity.selectedIndex = firstSelectedIndex;
+    if (!options.includes(capacity.value)) {
+      capacity.selectedIndex = capacityToIndex[options[0]];
     }
+
+    capacityList.forEach(function (option) {
+      option.disabled = !options.includes(option.value);
+    });
   };
 
   var onRoomNumberChange = function () {
