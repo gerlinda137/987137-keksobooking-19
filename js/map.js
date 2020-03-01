@@ -1,15 +1,16 @@
 'use strict';
 
 (function () {
+  var PinSize = {
+    HEIGHT: 70,
+    RADIUS: 50 / 2
+  };
+
   var mapPinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document
     .querySelector('#pin')
     .content.querySelector('.map__pin');
 
-  var PinSize = {
-    HEIGHT: 70,
-    RADIUS: 50 / 2
-  };
   var renderPin = function (advert) {
     var pin = pinTemplate.cloneNode(true);
     var avatar = pin.querySelector('img');
