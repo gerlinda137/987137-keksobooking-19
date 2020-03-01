@@ -48,7 +48,7 @@
 
   var inputs = adForm.querySelectorAll('input, select, fieldset');
 
-  window.advertForm = {
+  window.notification = {
     addressInput: addressInput,
     changeAddressValue: changeAddressValue,
     enable: function () {

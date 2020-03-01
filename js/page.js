@@ -30,8 +30,8 @@
     if (adverts.length > 0) {
       window.map.addPins(adverts);
       window.map.enable();
-      window.advertForm.enable();
-      window.advertForm.changeAddressValue();
+      window.notification.enable();
+      window.notification.changeAddressValue();
       mapPin.removeEventListener('mousedown', onMapPinMouseDown);
       mapPin.removeEventListener('keydown', onMapPinKeyDown);
     }
