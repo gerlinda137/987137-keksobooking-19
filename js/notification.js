@@ -46,8 +46,14 @@
     addressInput.value = window.map.getPinAddress();
   };
 
-  window.form = {
+  var inputs = adForm.querySelectorAll('input, select, fieldset');
+
+  window.advertForm = {
     addressInput: addressInput,
     changeAddressValue: changeAddressValue,
+    enable: function () {
+      inputs.forEach(window.util.unsetDisabled);
+      adForm.classList.remove('ad-form--disabled');
+    },
   };
 })();
