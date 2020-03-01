@@ -5,6 +5,7 @@
   var roomNumber = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
   var capacityList = adForm.querySelectorAll('#capacity option');
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
   var roomToCapacity = {
     1: ['1'],
@@ -55,5 +56,15 @@
       inputs.forEach(window.util.unsetDisabled);
       adForm.classList.remove('ad-form--disabled');
     },
+    disable: function () {
+      inputs.forEach(window.util.setDisabled);
+      adForm.classList.add('ad-form--disabled');
+    },
   };
+
+  resetButton.addEventListener('mousedown', function () {
+    window.page.deactivatePage();
+    window.map.removePins();
+  });
+
 })();

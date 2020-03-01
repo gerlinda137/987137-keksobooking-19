@@ -25,7 +25,6 @@
     mapPinsContainer.appendChild(fragment);
   };
 
-
   var getPinPosition = function () {
     var left = mapPin.offsetLeft;
     var top = mapPin.offsetTop;
@@ -59,5 +58,19 @@
       });
       map.classList.remove('map--faded');
     },
+    disable: function () {
+      mapFiltersInputs.forEach(function (element) {
+        element.disabled = true;
+      });
+      map.classList.add('map--faded');
+    },
+    removePins: function () {
+      var pins = mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
+      if (pins !== null) {
+        pins.forEach(function (element) {
+          element.remove();
+        });
+      }
+    }
   };
 })();
