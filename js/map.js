@@ -51,8 +51,6 @@
 
   window.map = {
     addPins: addPins,
-    MainPinSize: MainPinSize,
-    getPinPosition: getPinPosition,
     getPinAddress: getPinAddress,
     getCenterPinAddress: getCenterPinAddress,
     enable: function () {
