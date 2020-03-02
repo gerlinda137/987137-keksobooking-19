@@ -19,5 +19,9 @@
     unsetDisabled: function (element) {
       element.disabled = false;
     },
+
+    isFunction: function (value) {
+      return typeof value === 'function';
+    },
   };
 })();

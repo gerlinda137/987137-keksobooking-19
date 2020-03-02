@@ -47,6 +47,8 @@
 
   var inputs = adForm.querySelectorAll('input, select, fieldset');
 
+  var onReset = null;
+
   window.notification = {
     addressInput: addressInput,
     changeAddressValue: changeAddressValue,
@@ -58,11 +60,15 @@
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
     },
+    setOnReset: function (callback) {
+      onReset = callback;
+    },
   };
 
   resetButton.addEventListener('mousedown', function () {
-    window.page.deactivatePage();
-    window.map.removePins();
+    if (window.util.isFunction(onReset)) {
+      onReset();
+    }
   });
 
 })();

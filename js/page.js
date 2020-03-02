@@ -40,7 +40,8 @@
 
   document.addEventListener('DOMContentLoaded', onDomLoad);
 
-  window.page = {
-    deactivatePage: deactivatePage,
-  };
+  window.notification.setOnReset(function () {
+    deactivatePage();
+    window.map.removePins();
+  });
 })();
