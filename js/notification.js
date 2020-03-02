@@ -39,11 +39,9 @@
   validateRoomsAndCapacity();
 
   var addressInput = adForm.querySelector('#address');
-  addressInput.value = window.map.getCenterPinAddress();
-
-  var changeAddressValue = function () {
-    addressInput.value = window.map.getPinAddress();
-  };
+  window.mainPin.setOnChange(function (coords) {
+    addressInput.value = coords.x + ', ' + coords.y;
+  });
 
   var inputs = adForm.querySelectorAll('input, select, fieldset');
 
@@ -51,7 +49,6 @@
 
   window.notification = {
     addressInput: addressInput,
-    changeAddressValue: changeAddressValue,
     enable: function () {
       inputs.forEach(window.util.unsetDisabled);
       adForm.classList.remove('ad-form--disabled');
