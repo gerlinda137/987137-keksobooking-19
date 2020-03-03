@@ -39,18 +39,26 @@
     }
   };
 
-  var onMainPinFirstMouseDown = function () {
-    handleFirstAction();
+  var onMainPinFirstMouseDown = function (evt) {
+    if (window.util.isMainMouseButton(evt)) {
+      handleFirstAction();
+    }
   };
 
   var onMainPinMouseDown = function () {
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
   };
 
+  var onMainPinFirstKeyDown = function (evt) {
+    if (window.util.isEnterKey(evt)) {
+      handleFirstAction();
+    }
+  };
+
   var addListeners = function () {
     mainPin.addEventListener('mousedown', onMainPinFirstMouseDown);
     mainPin.addEventListener('mousedown', onMainPinMouseDown);
-    mainPin.addEventListener('keydown', onMainPinFirstMouseDown);
+    mainPin.addEventListener('keydown', onMainPinFirstKeyDown);
   };
 
   var removeListeners = function () {

@@ -4,10 +4,6 @@
 
   var map = document.querySelector('.map');
   var mapPinsContainer = document.querySelector('.map__pins');
-  var mapFilters = document.querySelector('.map__filters');
-  var mapFiltersInputs = mapFilters.querySelectorAll(
-      'input, select, fieldset'
-  );
 
   var addPins = function (adverts) {
     var pins = adverts.map(window.renderPin);
@@ -18,11 +14,11 @@
     addPins: addPins,
 
     enable: function () {
-      mapFiltersInputs.forEach(window.util.unsetDisabled);
+      window.filters.enable();
       map.classList.remove('map--faded');
     },
     disable: function () {
-      mapFiltersInputs.forEach(window.util.setDisabled);
+      window.filters.disable();
       map.classList.add('map--faded');
     },
     removePins: function () {
