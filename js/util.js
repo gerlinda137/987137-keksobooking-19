@@ -23,5 +23,9 @@
     isFunction: function (value) {
       return typeof value === 'function';
     },
+
+    removeElement: function (element) {
+      element.remove();
+    },
   };
 })();

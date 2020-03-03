@@ -41,12 +41,8 @@
       map.classList.add('map--faded');
     },
     removePins: function () {
-      var pins = mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
-      if (pins !== null) {
-        pins.forEach(function (element) {
-          element.remove();
-        });
-      }
+      mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
+        .forEach(window.util.removeElement);
     }
   };
 })();
