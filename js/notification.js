@@ -47,6 +47,12 @@
 
   var onReset = null;
 
+  resetButton.addEventListener('click', function () {
+    if (window.util.isFunction(onReset)) {
+      onReset();
+    }
+  });
+
   window.notification = {
     addressInput: addressInput,
     enable: function () {
@@ -61,11 +67,5 @@
       onReset = callback;
     },
   };
-
-  resetButton.addEventListener('mousedown', function () {
-    if (window.util.isFunction(onReset)) {
-      onReset();
-    }
-  });
 
 })();
