@@ -29,15 +29,11 @@
     addPins: addPins,
 
     enable: function () {
-      mapFiltersInputs.forEach(function (element) {
-        element.disabled = false;
-      });
+      mapFiltersInputs.forEach(window.util.unsetDisabled);
       map.classList.remove('map--faded');
     },
     disable: function () {
-      mapFiltersInputs.forEach(function (element) {
-        element.disabled = true;
-      });
+      mapFiltersInputs.forEach(window.util.setDisabled);
       map.classList.add('map--faded');
     },
     removePins: function () {
