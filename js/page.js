@@ -6,10 +6,9 @@
     var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
     if (adverts.length > 0) {
       window.map.addPins(adverts);
-      window.map.enable();
       window.notification.enable();
-      // window.notification.changeAddressValue();
     }
+    window.map.enable();
   };
 
   var deactivatePage = function () {

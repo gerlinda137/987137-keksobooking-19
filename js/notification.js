@@ -62,6 +62,7 @@
     disable: function () {
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
+      adForm.reset();
     },
     setOnReset: function (callback) {
       onReset = callback;
