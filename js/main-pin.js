@@ -17,12 +17,12 @@
   var onFirstAction = null;
   var onChange = null;
 
-  var setOnFirstAction = function (handler) {
-    onFirstAction = handler;
+  var setOnFirstAction = function (callback) {
+    onFirstAction = callback;
   };
 
-  var setOnChange = function (handler) {
-    onChange = handler;
+  var setOnChange = function (callback) {
+    onChange = callback;
   };
 
   var handleFirstAction = function () {

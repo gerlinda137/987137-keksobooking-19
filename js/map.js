@@ -14,11 +14,9 @@
     addPins: addPins,
 
     enable: function () {
-      window.filters.enable();
       map.classList.remove('map--faded');
     },
     disable: function () {
-      window.filters.disable();
       map.classList.add('map--faded');
     },
     removePins: function () {

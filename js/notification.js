@@ -6,6 +6,8 @@
   var capacity = adForm.querySelector('#capacity');
   var capacityList = adForm.querySelectorAll('#capacity option');
   var resetButton = adForm.querySelector('.ad-form__reset');
+  var inputs = adForm.querySelectorAll('input, select, fieldset');
+  var addressInput = adForm.querySelector('#address');
 
   var roomToCapacity = {
     1: ['1'],
@@ -38,12 +40,9 @@
   roomNumber.addEventListener('change', onRoomNumberChange);
   validateRoomsAndCapacity();
 
-  var addressInput = adForm.querySelector('#address');
   window.mainPin.setOnChange(function (coords) {
     addressInput.value = coords.x + ', ' + coords.y;
   });
-
-  var inputs = adForm.querySelectorAll('input, select, fieldset');
 
   var onReset = null;
 
@@ -54,7 +53,6 @@
   });
 
   window.notification = {
-    addressInput: addressInput,
     enable: function () {
       inputs.forEach(window.util.unsetDisabled);
       adForm.classList.remove('ad-form--disabled');
@@ -63,6 +61,7 @@
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
       adForm.reset();
+      validateRoomsAndCapacity();
     },
     setOnReset: function (callback) {
       onReset = callback;

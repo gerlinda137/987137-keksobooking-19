@@ -6,15 +6,17 @@
     var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
     if (adverts.length > 0) {
       window.map.addPins(adverts);
-      window.notification.enable();
+      window.filters.enable();
     }
     window.map.enable();
+    window.notification.enable();
   };
 
   var deactivatePage = function () {
     window.notification.disable();
     window.map.disable();
     window.mainPin.reset();
+    window.filters.disable();
   };
 
   var onDomLoad = function () {
