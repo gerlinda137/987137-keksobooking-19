@@ -6,6 +6,13 @@
     RADIUS: 32
   };
 
+  var PinDraggArea = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MIN_Y: 130,
+    MAX_Y: 630,
+  };
+
   var mainPin = document.querySelector('.map__pin--main');
   var getMainPinCoords = function (height) {
     return {
@@ -71,10 +78,15 @@
         y: moveEvt.clientY
       };
 
-      mainPin.style.top =
-      mainPin.offsetTop - shift.y + 'px';
-      mainPin.style.left =
-      mainPin.offsetLeft - shift.x + 'px';
+
+      var newMainPinPositionTop = mainPin.offsetTop - shift.y;
+      if (newMainPinPositionTop >= PinDraggArea.MIN_Y && newMainPinPositionTop <= PinDraggArea.MAX_Y) {
+        mainPin.style.top = newMainPinPositionTop + 'px';
+      }
+      var newMainPinPositionLeft = mainPin.offsetLeft - shift.x;
+      if (newMainPinPositionLeft >= PinDraggArea.MIN_X - MainPinSize.RADIUS && newMainPinPositionLeft <= PinDraggArea.MAX_X - MainPinSize.RADIUS) {
+        mainPin.style.left = newMainPinPositionLeft + 'px';
+      }
 
       handleChange(getMainPinCoords(MainPinSize.HEIGHT));
     };
