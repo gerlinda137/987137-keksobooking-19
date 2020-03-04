@@ -75,6 +75,8 @@
       mainPin.offsetTop - shift.y + 'px';
       mainPin.style.left =
       mainPin.offsetLeft - shift.x + 'px';
+
+      handleChange(getMainPinCoords(MainPinSize.HEIGHT));
     };
 
     var onMouseUp = function (upEvt) {
