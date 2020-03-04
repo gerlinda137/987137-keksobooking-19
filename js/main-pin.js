@@ -14,6 +14,16 @@
   };
 
   var mainPin = document.querySelector('.map__pin--main');
+
+  var defaultMainPinCoords = {
+    x: mainPin.offsetLeft,
+    y: mainPin.offsetTop,
+  };
+  var resetMainPinPosition = function () {
+    mainPin.style.top = defaultMainPinCoords.y + 'px';
+    mainPin.style.left = defaultMainPinCoords.x + 'px';
+  };
+
   var getMainPinCoords = function (height) {
     return {
       x: mainPin.offsetLeft + MainPinSize.RADIUS,
@@ -128,6 +138,7 @@
   };
 
   var reset = function () {
+    resetMainPinPosition();
     handleChange(getMainPinCoords(MainPinSize.RADIUS));
 
     mainPin.removeEventListener('mousedown', onMainPinMouseDown);
