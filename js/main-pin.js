@@ -6,7 +6,7 @@
     RADIUS: 32
   };
 
-  var PinDraggArea = {
+  var PinDragArea = {
     MIN_X: 0,
     MAX_X: 1200,
     MIN_Y: 130,
@@ -62,46 +62,33 @@
     }
   };
 
-  var onMainPinMouseDown = function (evt) {
+  var onMainPinMouseDown = function () {
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
-
-    evt.preventDefault();
-
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      var newMainPinPositionTop = mainPin.offsetTop + moveEvt.movementY;
-      if (newMainPinPositionTop >= PinDraggArea.MIN_Y && newMainPinPositionTop <= PinDraggArea.MAX_Y) {
-        mainPin.style.top = newMainPinPositionTop + 'px';
-      }
-      var newMainPinPositionLeft = mainPin.offsetLeft + moveEvt.movementX;
-      if (newMainPinPositionLeft >= PinDraggArea.MIN_X - MainPinSize.RADIUS && newMainPinPositionLeft <= PinDraggArea.MAX_X - MainPinSize.RADIUS) {
-        mainPin.style.left = newMainPinPositionLeft + 'px';
-      }
-
-      handleChange(getMainPinCoords(MainPinSize.HEIGHT));
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mousemove', onMouseMoveOnce, {capture: true});
-    };
-
-    var onClickPreventDefault = function (clickEvt) {
-      clickEvt.preventDefault();
-    };
-
-    var onMouseMoveOnce = function () {
-      mainPin.addEventListener('click', onClickPreventDefault, {once: true});
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mousemove', onMouseMoveOnce, {once: true, capture: true});
-    document.addEventListener('mouseup', onMouseUp, {once: true});
   };
+
+  var onClickPreventDefault = function (evt) {
+    evt.preventDefault();
+  };
+  var onStartMove = function () {
+    mainPin.addEventListener('click', onClickPreventDefault, {once: true});
+  };
+
+  var onMove = function (evt) {
+    var newMainPinPositionTop = mainPin.offsetTop + evt.movementY;
+    if (newMainPinPositionTop >= PinDragArea.MIN_Y && newMainPinPositionTop <= PinDragArea.MAX_Y) {
+      mainPin.style.top = newMainPinPositionTop + 'px';
+    }
+    var newMainPinPositionLeft = mainPin.offsetLeft + evt.movementX;
+    if (newMainPinPositionLeft >= PinDragArea.MIN_X - MainPinSize.RADIUS && newMainPinPositionLeft <= PinDragArea.MAX_X - MainPinSize.RADIUS) {
+      mainPin.style.left = newMainPinPositionLeft + 'px';
+    }
+
+    handleChange(getMainPinCoords(MainPinSize.HEIGHT));
+  };
+
+  var onMainPinMouseDownEvent = window.dnd.makeMouseDownHandler(onStartMove, onMove);
+  mainPin.addEventListener('mousedown', onMainPinMouseDownEvent);
+
 
   var onMainPinFirstKeyDown = function (evt) {
     if (window.util.isEnterKey(evt)) {
