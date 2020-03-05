@@ -66,34 +66,16 @@
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
 
     evt.preventDefault();
-    var startCoordinates = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
 
-    var dragged = false;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      dragged = true;
-
-      var shift = {
-        x: startCoordinates.x - moveEvt.clientX,
-        y: startCoordinates.y - moveEvt.clientY
-      };
-
-      startCoordinates = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-
-
-      var newMainPinPositionTop = mainPin.offsetTop - shift.y;
+      var newMainPinPositionTop = mainPin.offsetTop + moveEvt.movementY;
       if (newMainPinPositionTop >= PinDraggArea.MIN_Y && newMainPinPositionTop <= PinDraggArea.MAX_Y) {
         mainPin.style.top = newMainPinPositionTop + 'px';
       }
-      var newMainPinPositionLeft = mainPin.offsetLeft - shift.x;
+      var newMainPinPositionLeft = mainPin.offsetLeft + moveEvt.movementX;
       if (newMainPinPositionLeft >= PinDraggArea.MIN_X - MainPinSize.RADIUS && newMainPinPositionLeft <= PinDraggArea.MAX_X - MainPinSize.RADIUS) {
         mainPin.style.left = newMainPinPositionLeft + 'px';
       }
@@ -105,19 +87,20 @@
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', onMouseMoveOnce, {capture: true});
+    };
 
-      if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          mainPin.removeEventListener('click', onClickPreventDefault);
-        };
-        mainPin.addEventListener('click', onClickPreventDefault);
-      }
+    var onClickPreventDefault = function (clickEvt) {
+      clickEvt.preventDefault();
+    };
+
+    var onMouseMoveOnce = function () {
+      mainPin.addEventListener('click', onClickPreventDefault, {once: true});
     };
 
     document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMoveOnce, {once: true, capture: true});
+    document.addEventListener('mouseup', onMouseUp, {once: true});
   };
 
   var onMainPinFirstKeyDown = function (evt) {
