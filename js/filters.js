@@ -9,7 +9,7 @@
     },
     disable: function () {
       mapFiltersInputs.forEach(window.util.setDisabled);
-      mapFiltersInputs.reset();
+      mapFilters.reset();
     },
   };
 })();

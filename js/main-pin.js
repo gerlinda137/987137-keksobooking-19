@@ -6,22 +6,18 @@
     RADIUS: 32
   };
 
-  var PinDragArea = {
-    MIN_X: 0,
-    MAX_X: 1200,
-    MIN_Y: 130,
-    MAX_Y: 630,
-  };
-
   var mainPin = document.querySelector('.map__pin--main');
 
-  var defaultMainPinCoords = {
+  var initialMainPinCoords = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop,
   };
+
+  var MapRect = window.map.RECT;
+
   var resetMainPinPosition = function () {
-    mainPin.style.top = defaultMainPinCoords.y + 'px';
-    mainPin.style.left = defaultMainPinCoords.x + 'px';
+    mainPin.style.top = initialMainPinCoords.y + 'px';
+    mainPin.style.left = initialMainPinCoords.x + 'px';
   };
 
   var getMainPinCoords = function (height) {
@@ -62,30 +58,31 @@
     }
   };
 
-  var onMainPinMouseDown = function () {
-    handleChange(getMainPinCoords(MainPinSize.HEIGHT));
-  };
-
 
   var onStartMove = function () {
     mainPin.addEventListener('click', {once: true});
   };
 
+  var MainPinRect = {
+    LEFT: MapRect.LEFT - MainPinSize.RADIUS,
+    RIGHT: MapRect.RIGHT - MainPinSize.RADIUS,
+    TOP: MapRect.TOP,
+    BOTTOM: MapRect.BOTTOM,
+  };
+
   var onMove = function (evt) {
     var newMainPinPositionTop = mainPin.offsetTop + evt.movementY;
-    if (newMainPinPositionTop >= PinDragArea.MIN_Y && newMainPinPositionTop <= PinDragArea.MAX_Y) {
-      mainPin.style.top = newMainPinPositionTop + 'px';
-    }
+    var top = window.util.clampNumber(newMainPinPositionTop, MainPinRect.TOP, MainPinRect.BOTTOM);
+    mainPin.style.top = top + 'px';
+
     var newMainPinPositionLeft = mainPin.offsetLeft + evt.movementX;
-    if (newMainPinPositionLeft >= PinDragArea.MIN_X - MainPinSize.RADIUS && newMainPinPositionLeft <= PinDragArea.MAX_X - MainPinSize.RADIUS) {
-      mainPin.style.left = newMainPinPositionLeft + 'px';
-    }
+    var left = window.util.clampNumber(newMainPinPositionLeft, MainPinRect.LEFT, MainPinRect.RIGHT);
+    mainPin.style.left = left + 'px';
 
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
   };
 
-  var onMainPinMouseDownEvent = window.dnd.makeMouseDownHandler(onStartMove, onMove);
-  mainPin.addEventListener('mousedown', onMainPinMouseDownEvent);
+  var onMainPinMouseDown = window.dnd.makeMouseDownHandler(onStartMove, onMove);
 
 
   var onMainPinFirstKeyDown = function (evt) {
