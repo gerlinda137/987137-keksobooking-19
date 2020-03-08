@@ -66,11 +66,9 @@
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
   };
 
-  var onClickPreventDefault = function (evt) {
-    evt.preventDefault();
-  };
+
   var onStartMove = function () {
-    mainPin.addEventListener('click', onClickPreventDefault, {once: true});
+    mainPin.addEventListener('click', {once: true});
   };
 
   var onMove = function (evt) {
