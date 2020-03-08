@@ -58,10 +58,21 @@
     }
   };
 
+  var startCoords = null;
 
-  var onStartMove = function () {
-    mainPin.addEventListener('click', {once: true});
+  var onMainPinMouseUp = function () {
+    startCoords = null;
   };
+
+  var onMainPinStartMove = function (evt) {
+    startCoords = {
+      y: mainPin.offsetTop - evt.clientY,
+      x: mainPin.offsetLeft - evt.clientX,
+    };
+
+    mainPin.addEventListener('mouseup', onMainPinMouseUp, {once: true});
+  };
+
 
   var MainPinRect = {
     LEFT: MapRect.LEFT - MainPinSize.RADIUS,
@@ -69,20 +80,22 @@
     TOP: MapRect.TOP,
     BOTTOM: MapRect.BOTTOM,
   };
+  console.log(MainPinRect);
 
-  var onMove = function (evt) {
-    var newMainPinPositionTop = mainPin.offsetTop + evt.movementY;
-    var top = window.util.clampNumber(newMainPinPositionTop, MainPinRect.TOP, MainPinRect.BOTTOM);
+  var onMainPinMove = function (evt) {
+    var y = startCoords.y + evt.clientY;
+    var top = window.util.clampNumber(y, MainPinRect.TOP, MainPinRect.BOTTOM);
     mainPin.style.top = top + 'px';
 
-    var newMainPinPositionLeft = mainPin.offsetLeft + evt.movementX;
-    var left = window.util.clampNumber(newMainPinPositionLeft, MainPinRect.LEFT, MainPinRect.RIGHT);
+    var x = startCoords.x + evt.clientX;
+    var left = window.util.clampNumber(x, MainPinRect.LEFT, MainPinRect.RIGHT);
     mainPin.style.left = left + 'px';
 
     handleChange(getMainPinCoords(MainPinSize.HEIGHT));
   };
 
-  var onMainPinMouseDown = window.dnd.makeMouseDownHandler(onStartMove, onMove);
+
+  var onMainPinMouseDown = window.dnd.makeMouseDownHandler(onMainPinStartMove, onMainPinMove);
 
 
   var onMainPinFirstKeyDown = function (evt) {
