@@ -1,9 +1,7 @@
 'use strict';
 (function () {
   var mapFilters = document.querySelector('.map__filters');
-  var mapFiltersInputs = mapFilters.querySelectorAll(
-      'input, select, fieldset'
-  );
+  var mapFiltersInputs = mapFilters.querySelectorAll('input, select');
 
   window.filters = {
     enable: function () {
@@ -11,6 +9,7 @@
     },
     disable: function () {
       mapFiltersInputs.forEach(window.util.setDisabled);
+      mapFilters.reset();
     },
   };
 })();

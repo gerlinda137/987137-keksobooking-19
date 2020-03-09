@@ -38,7 +38,6 @@
   };
 
   roomNumber.addEventListener('change', onRoomNumberChange);
-  validateRoomsAndCapacity();
 
   window.mainPin.setOnChange(function (coords) {
     addressInput.value = coords.x + ', ' + coords.y;
@@ -61,7 +60,6 @@
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
       adForm.reset();
-      validateRoomsAndCapacity();
     },
     setOnReset: function (callback) {
       onReset = callback;

@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+  var MapRect = {
+    LEFT: 0,
+    RIGHT: 1200,
+    TOP: 130,
+    BOTTOM: 630,
+  };
 
   var map = document.querySelector('.map');
   var mapPinsContainer = document.querySelector('.map__pins');
@@ -12,6 +18,7 @@
 
   window.map = {
     addPins: addPins,
+    RECT: MapRect,
 
     enable: function () {
       map.classList.remove('map--faded');

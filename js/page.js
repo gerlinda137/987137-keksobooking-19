@@ -28,7 +28,6 @@
   window.notification.setOnReset(function () {
     deactivatePage();
     window.map.removePins();
-    window.mainPin.reset();
   });
 
   window.mainPin.setOnFirstAction(function () {
