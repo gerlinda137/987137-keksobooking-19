@@ -1,13 +1,17 @@
 'use strict';
 (function () {
-  var ADVERTISEMENT_AMOUNT = 8;
+  // var ADVERTISEMENT_AMOUNT = 8;
 
   var activatePage = function () {
-    var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
-    if (adverts.length > 0) {
-      window.map.addPins(adverts);
-      window.filters.enable();
-    }
+    // var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
+
+    window.load(function (adverts) {
+      if (adverts.length > 0) {
+        window.map.addPins(adverts);
+        window.filters.enable();
+      }
+    });
+
     window.map.enable();
     window.notification.enable();
   };
