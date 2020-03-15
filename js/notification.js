@@ -1,6 +1,19 @@
 'use strict';
 
 (function () {
+  var roomToCapacity = {
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
+  };
+
+  var accommodationsToPtice = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000,
+  };
 
   var adForm = document.querySelector('.ad-form');
   var roomNumber = adForm.querySelector('#room_number');
@@ -9,13 +22,6 @@
   var resetButton = adForm.querySelector('.ad-form__reset');
   var inputs = adForm.querySelectorAll('input, select, fieldset');
   var addressInput = adForm.querySelector('#address');
-
-  var roomToCapacity = {
-    1: ['1'],
-    2: ['1', '2'],
-    3: ['1', '2', '3'],
-    100: ['0']
-  };
 
   var capacityToIndex = {};
   capacityList.forEach(function (option) {
@@ -68,6 +74,22 @@
   };
   syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
   syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
+
+  var filterIputType = adForm.querySelector('#type');
+  var filterIputPrice = adForm.querySelector('#price');
+
+  var setAccommodationMinPrice = function () {
+    var currentInputIndex = filterIputType.selectedIndex;
+    var currentOption = filterIputType.options[currentInputIndex];
+
+    var minPrice = accommodationsToPtice[currentOption.value];
+    filterIputPrice.min = minPrice;
+    filterIputPrice.placeholder = minPrice;
+  };
+
+  filterIputType.addEventListener('change', setAccommodationMinPrice);
+  setAccommodationMinPrice();
+
 
   window.notification = {
     enable: function () {
