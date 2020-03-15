@@ -80,7 +80,6 @@
     TOP: MapRect.TOP,
     BOTTOM: MapRect.BOTTOM,
   };
-  console.log(MainPinRect);
 
   var onMainPinMove = function (evt) {
     var y = startCoords.y + evt.clientY;

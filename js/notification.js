@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var adForm = document.querySelector('.ad-form');
   var roomNumber = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
@@ -50,6 +51,23 @@
       onReset();
     }
   });
+
+  var filterInputTimeIn = adForm.querySelector('#timein');
+  var filterInputTimeOut = adForm.querySelector('#timeout');
+
+  var syncSelectOptions = function (elementSyncedWith, syncedElement) {
+    elementSyncedWith.addEventListener('change', function () {
+      var inFilterValue = elementSyncedWith.options[elementSyncedWith.selectedIndex].value;
+      for (var i = 0; i < syncedElement.options.length; i++) {
+        if (inFilterValue === syncedElement.options[i].value) {
+          syncedElement.selectedIndex = i;
+          break;
+        }
+      }
+    });
+  };
+  syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
+  syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
 
   window.notification = {
     enable: function () {

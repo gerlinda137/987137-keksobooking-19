@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select');
 
@@ -12,4 +13,5 @@
       mapFilters.reset();
     },
   };
+
 })();
