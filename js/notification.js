@@ -22,6 +22,10 @@
   var resetButton = adForm.querySelector('.ad-form__reset');
   var inputs = adForm.querySelectorAll('input, select, fieldset');
   var addressInput = adForm.querySelector('#address');
+  var filterInputTimeIn = adForm.querySelector('#timein');
+  var filterInputTimeOut = adForm.querySelector('#timeout');
+  var filterInputType = adForm.querySelector('#type');
+  var filterInputPrice = adForm.querySelector('#price');
 
   var capacityToIndex = {};
   capacityList.forEach(function (option) {
@@ -58,9 +62,6 @@
     }
   });
 
-  var filterInputTimeIn = adForm.querySelector('#timein');
-  var filterInputTimeOut = adForm.querySelector('#timeout');
-
   var syncSelectOptions = function (elementSyncedWith, syncedElement) {
     elementSyncedWith.addEventListener('change', function () {
       var inFilterValue = elementSyncedWith.options[elementSyncedWith.selectedIndex].value;
@@ -72,22 +73,20 @@
       }
     });
   };
+
   syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
   syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
 
-  var filterIputType = adForm.querySelector('#type');
-  var filterIputPrice = adForm.querySelector('#price');
-
   var setAccommodationMinPrice = function () {
-    var currentInputIndex = filterIputType.selectedIndex;
-    var currentOption = filterIputType.options[currentInputIndex];
+    var currentInputIndex = filterInputType.selectedIndex;
+    var currentOption = filterInputType.options[currentInputIndex];
 
     var minPrice = accommodationsToPtice[currentOption.value];
-    filterIputPrice.min = minPrice;
-    filterIputPrice.placeholder = minPrice;
+    filterInputPrice.min = minPrice;
+    filterInputPrice.placeholder = minPrice;
   };
 
-  filterIputType.addEventListener('change', setAccommodationMinPrice);
+  filterInputType.addEventListener('change', setAccommodationMinPrice);
   setAccommodationMinPrice();
 
 
