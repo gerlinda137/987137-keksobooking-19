@@ -8,7 +8,7 @@
     100: ['0']
   };
 
-  var accommodationsToPtice = {
+  var accommodationToMinPrice = {
     bungalo: 0,
     flat: 1000,
     house: 5000,
@@ -77,17 +77,14 @@
   syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
   syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
 
-  var setAccommodationMinPrice = function () {
-    var currentInputIndex = filterInputType.selectedIndex;
-    var currentOption = filterInputType.options[currentInputIndex];
+  var onFilterInputTypeChange = function () {
+    var minPrice = accommodationToMinPrice[filterInputType.value];
 
-    var minPrice = accommodationsToPtice[currentOption.value];
     filterInputPrice.min = minPrice;
     filterInputPrice.placeholder = minPrice;
   };
 
-  filterInputType.addEventListener('change', setAccommodationMinPrice);
-  setAccommodationMinPrice();
+  filterInputType.addEventListener('change', onFilterInputTypeChange);
 
 
   window.notification = {

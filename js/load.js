@@ -4,9 +4,9 @@
     OK: 200,
   };
   var TIMEOUT_MS = 10000;
+  var URL = 'https://js.dump.academy/keksobooking/data';
 
   window.load = function (onSuccess, onError) {
-    var URL = 'https://js.dump.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 

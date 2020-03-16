@@ -1,9 +1,6 @@
 'use strict';
 (function () {
-  // var ADVERTISEMENT_AMOUNT = 8;
-
   var activatePage = function () {
-    // var adverts = window.generateAdvers(ADVERTISEMENT_AMOUNT);
 
     window.load(function (adverts) {
       if (adverts.length > 0) {
