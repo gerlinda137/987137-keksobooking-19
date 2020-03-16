@@ -107,7 +107,25 @@
 
       successMessageDiv.addEventListener('click', onSuccessMessagePress);
       document.body.addEventListener('keydown', onSuccessMessagePress);
-      successMessageDiv.focus();
+    }, function () {
+      var errorMessageTemplate = document.querySelector('#error').content;
+      var errorMessage = errorMessageTemplate.cloneNode(true);
+      document.body.appendChild(errorMessage);
+
+      var errorMessageDiv = document.querySelector('.error');
+      var onErrorMessagePress = function (evt1) {
+        if (window.util.isMainMouseButton(evt1) || window.util.isEscKey(evt1)) {
+          errorMessageDiv.remove();
+        }
+      };
+
+      var errorButton = errorMessageDiv.querySelector('.error__button');
+
+      errorMessageDiv.addEventListener('click', onErrorMessagePress);
+      errorButton.addEventListener('click', onErrorMessagePress);
+      document.body.addEventListener('keydown', onErrorMessagePress);
+
+
     });
     evt.preventDefault();
   });
