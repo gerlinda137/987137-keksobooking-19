@@ -6,6 +6,15 @@
     RADIUS: 32
   };
 
+  var MapRect = window.map.RECT;
+
+  var MainPinRect = {
+    LEFT: MapRect.LEFT - MainPinSize.RADIUS,
+    RIGHT: MapRect.RIGHT - MainPinSize.RADIUS,
+    TOP: MapRect.TOP - MainPinSize.HEIGHT,
+    BOTTOM: MapRect.BOTTOM - MainPinSize.HEIGHT,
+  };
+
   var mainPin = document.querySelector('.map__pin--main');
 
   var initialMainPinCoords = {
@@ -13,7 +22,6 @@
     y: mainPin.offsetTop,
   };
 
-  var MapRect = window.map.RECT;
 
   var resetMainPinPosition = function () {
     mainPin.style.top = initialMainPinCoords.y + 'px';
@@ -43,6 +51,7 @@
       onFirstAction();
     }
 
+    handleChange(getMainPinCoords(MainPinSize.HEIGHT));
     removeListeners();
   };
 
@@ -73,14 +82,6 @@
     mainPin.addEventListener('mouseup', onMainPinMouseUp, {once: true});
   };
 
-
-  var MainPinRect = {
-    LEFT: MapRect.LEFT - MainPinSize.RADIUS,
-    RIGHT: MapRect.RIGHT - MainPinSize.RADIUS,
-    TOP: MapRect.TOP,
-    BOTTOM: MapRect.BOTTOM,
-  };
-  console.log(MainPinRect);
 
   var onMainPinMove = function (evt) {
     var y = startCoords.y + evt.clientY;

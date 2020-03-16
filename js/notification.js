@@ -1,6 +1,20 @@
 'use strict';
 
 (function () {
+  var roomToCapacity = {
+    1: ['1'],
+    2: ['1', '2'],
+    3: ['1', '2', '3'],
+    100: ['0']
+  };
+
+  var accommodationsToPtice = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000,
+  };
+
   var adForm = document.querySelector('.ad-form');
   var roomNumber = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
@@ -8,13 +22,10 @@
   var resetButton = adForm.querySelector('.ad-form__reset');
   var inputs = adForm.querySelectorAll('input, select, fieldset');
   var addressInput = adForm.querySelector('#address');
-
-  var roomToCapacity = {
-    1: ['1'],
-    2: ['1', '2'],
-    3: ['1', '2', '3'],
-    100: ['0']
-  };
+  var filterInputTimeIn = adForm.querySelector('#timein');
+  var filterInputTimeOut = adForm.querySelector('#timeout');
+  var filterInputType = adForm.querySelector('#type');
+  var filterInputPrice = adForm.querySelector('#price');
 
   var capacityToIndex = {};
   capacityList.forEach(function (option) {
@@ -50,6 +61,34 @@
       onReset();
     }
   });
+
+  var syncSelectOptions = function (elementSyncedWith, syncedElement) {
+    elementSyncedWith.addEventListener('change', function () {
+      var inFilterValue = elementSyncedWith.options[elementSyncedWith.selectedIndex].value;
+      for (var i = 0; i < syncedElement.options.length; i++) {
+        if (inFilterValue === syncedElement.options[i].value) {
+          syncedElement.selectedIndex = i;
+          break;
+        }
+      }
+    });
+  };
+
+  syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
+  syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
+
+  var setAccommodationMinPrice = function () {
+    var currentInputIndex = filterInputType.selectedIndex;
+    var currentOption = filterInputType.options[currentInputIndex];
+
+    var minPrice = accommodationsToPtice[currentOption.value];
+    filterInputPrice.min = minPrice;
+    filterInputPrice.placeholder = minPrice;
+  };
+
+  filterInputType.addEventListener('change', setAccommodationMinPrice);
+  setAccommodationMinPrice();
+
 
   window.notification = {
     enable: function () {
