@@ -2,7 +2,7 @@
 
 (function () {
   var TIMEOUT_MS = 10000;
-  var URL = 'https://js.d1ump.academy/keksobooking';
+  var URL = 'https://js.dump.academy/keksobooking';
 
   window.upload = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
