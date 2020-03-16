@@ -91,15 +91,23 @@
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
 
-  // var successMessageTemplate = document.querySelector('#success');
-  // var successMessage = successMessageTemplate.cloneNode(true);
-  // // var renderSuccessMessageToDom = document.createDocumentFragment();
-  // document.appendChild(successMessage);
-
   adForm.addEventListener('submit', function (evt) {
     window.upload(new FormData(adForm), function () {
       callOnReset();
+      var successMessageTemplate = document.querySelector('#success').content;
+      var successMessage = successMessageTemplate.cloneNode(true);
+      document.body.appendChild(successMessage);
 
+      var successMessageDiv = document.querySelector('.success');
+      var onSuccessMessagePress = function (evt1) {
+        if (window.util.isMainMouseButton(evt1) || window.util.isEscKey(evt1)) {
+          successMessageDiv.remove();
+        }
+      };
+
+      successMessageDiv.addEventListener('click', onSuccessMessagePress);
+      document.body.addEventListener('keydown', onSuccessMessagePress);
+      successMessageDiv.focus();
     });
     evt.preventDefault();
   });

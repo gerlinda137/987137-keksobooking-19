@@ -2,10 +2,15 @@
 (function () {
   var ENTER_KEY = 'Enter';
   var MAIN_BUTTON = 0;
+  var ESC_KEY = 'Escape';
 
   window.util = {
     isEnterKey: function (evt) {
       return evt.key === ENTER_KEY;
+    },
+
+    isEscKey: function (evt) {
+      return evt.key === ESC_KEY;
     },
 
     isMainMouseButton: function (evt) {
