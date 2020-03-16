@@ -56,11 +56,16 @@
 
   var onReset = null;
 
-  resetButton.addEventListener('click', function () {
+  var callOnReset = function () {
     if (window.util.isFunction(onReset)) {
       onReset();
     }
+  };
+
+  resetButton.addEventListener('click', function () {
+    callOnReset();
   });
+
 
   var syncSelectOptions = function (elementSyncedWith, syncedElement) {
     elementSyncedWith.addEventListener('change', function () {
@@ -85,6 +90,19 @@
   };
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
+
+  // var successMessageTemplate = document.querySelector('#success');
+  // var successMessage = successMessageTemplate.cloneNode(true);
+  // // var renderSuccessMessageToDom = document.createDocumentFragment();
+  // document.appendChild(successMessage);
+
+  adForm.addEventListener('submit', function (evt) {
+    window.upload(new FormData(adForm), function () {
+      callOnReset();
+
+    });
+    evt.preventDefault();
+  });
 
 
   window.notification = {
