@@ -7,7 +7,7 @@
     document.body.appendChild(messageDiv);
 
     var removeMessage = function (evt) {
-      if (window.util.isMainMouseButton(evt) || window.util.isEscKey(evt)) {
+      if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
         messageDiv.remove();
         document.body.removeEventListener('keydown', onDocumentKeydown);
       }

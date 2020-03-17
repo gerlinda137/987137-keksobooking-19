@@ -31,8 +31,13 @@
   document.addEventListener('DOMContentLoaded', onDomLoad);
 
   window.notification.setOnReset(function () {
-    deactivatePage();
     window.map.removePins();
+    deactivatePage();
+  });
+
+  window.notification.setOnSubmit(function () {
+    window.map.removePins();
+    deactivatePage();
   });
 
   window.mainPin.setOnFirstAction(function () {

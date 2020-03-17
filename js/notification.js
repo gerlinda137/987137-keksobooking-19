@@ -56,15 +56,16 @@
 
   var onReset = null;
 
-  var callOnReset = function () {
+
+  var onResetButtonClick = function () {
     if (window.util.isFunction(onReset)) {
       onReset();
     }
   };
 
-  resetButton.addEventListener('click', function () {
-    callOnReset();
-  });
+  resetButton.addEventListener('click', onResetButtonClick);
+
+  var onSubmit = null;
 
 
   var syncSelectOptions = function (elementSyncedWith, syncedElement) {
@@ -93,7 +94,9 @@
 
   var onUploadSuccess = function () {
     window.splash.showMessage('#success', '.success');
-    callOnReset();
+    if (window.util.isFunction(onSubmit)) {
+      onSubmit();
+    }
   };
 
   var onUploadError = function () {
@@ -103,7 +106,6 @@
   adForm.addEventListener('submit', function (evt) {
     window.upload(new FormData(adForm), onUploadSuccess, onUploadError);
     evt.preventDefault();
-
   });
 
 
@@ -119,6 +121,9 @@
     },
     setOnReset: function (callback) {
       onReset = callback;
+    },
+    setOnSubmit: function (callback) {
+      onSubmit = callback;
     },
   };
 
