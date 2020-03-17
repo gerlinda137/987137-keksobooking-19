@@ -56,11 +56,17 @@
 
   var onReset = null;
 
-  resetButton.addEventListener('click', function () {
+
+  var onResetButtonClick = function () {
     if (window.util.isFunction(onReset)) {
       onReset();
     }
-  });
+  };
+
+  resetButton.addEventListener('click', onResetButtonClick);
+
+  var onSubmit = null;
+
 
   var syncSelectOptions = function (elementSyncedWith, syncedElement) {
     elementSyncedWith.addEventListener('change', function () {
@@ -86,6 +92,22 @@
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
 
+  var onUploadSuccess = function () {
+    window.splash.showMessage('#success', '.success');
+    if (window.util.isFunction(onSubmit)) {
+      onSubmit();
+    }
+  };
+
+  var onUploadError = function () {
+    window.splash.showMessage('#error', '.error', '.error__button');
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    window.upload(new FormData(adForm), onUploadSuccess, onUploadError);
+    evt.preventDefault();
+  });
+
 
   window.notification = {
     enable: function () {
@@ -99,6 +121,9 @@
     },
     setOnReset: function (callback) {
       onReset = callback;
+    },
+    setOnSubmit: function (callback) {
+      onSubmit = callback;
     },
   };
 
