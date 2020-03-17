@@ -1,7 +1,7 @@
 'use strict';
 (function () {
-  var onLoadError = function (errorMessage) {
-    window.splash.showError(errorMessage);
+  var onLoadError = function () {
+    window.splash.showMessage('#error', '.error', '.error__button');
   };
 
   var activatePage = function () {

@@ -91,13 +91,13 @@
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
 
-  var onUploadSuccess = function (data) {
-    window.splash.showSuccess(data);
+  var onUploadSuccess = function () {
+    window.splash.showMessage('#success', '.success');
     callOnReset();
   };
 
-  var onUploadError = function (errorMessage) {
-    window.splash.showError(errorMessage);
+  var onUploadError = function () {
+    window.splash.showMessage('#error', '.error', '.error__button');
   };
 
   adForm.addEventListener('submit', function (evt) {

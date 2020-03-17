@@ -4,7 +4,7 @@
     OK: 200,
   };
 
-  var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL = 'https://js.d1ump.academy/keksobooking/data';
 
   window.load = function (onSuccess, onError) {
     var xhr = window.backend.createRequest('GET', URL);
