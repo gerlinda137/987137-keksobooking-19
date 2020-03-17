@@ -6,18 +6,29 @@
     var messageDiv = message.cloneNode(true);
     document.body.appendChild(messageDiv);
 
-    var onMessagePress = function (evt) {
+    var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscKey(evt)) {
         messageDiv.remove();
-        document.body.removeEventListener('keydown', onMessagePress);
+        document.body.removeEventListener('keydown', onDocumentKeydown);
       }
     };
 
-    messageDiv.addEventListener('click', onMessagePress);
-    document.body.addEventListener('keydown', onMessagePress);
+    var onMessageClick = function (evt) {
+      removeMessage(evt);
+    };
+
+    var onDocumentKeydown = function (evt) {
+      removeMessage(evt);
+    };
+
+    var onExitButtonClick = function (evt) {
+      removeMessage(evt);
+    };
+    messageDiv.addEventListener('click', onMessageClick);
+    document.body.addEventListener('keydown', onDocumentKeydown);
     if (typeof exitButton === 'string') {
       var exitButton = messageDiv.querySelector(exitButtonSelector);
-      exitButton.addEventListener('click', onMessagePress);
+      exitButton.addEventListener('click', onExitButtonClick);
     }
   };
 
