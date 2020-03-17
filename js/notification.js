@@ -90,12 +90,15 @@
   };
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
-
-  //     callOnReset();
+  var onSuccessSubmit = function (data) {
+    window.splash.showSuccess(data);
+    callOnReset();
+  };
 
   adForm.addEventListener('submit', function (evt) {
-    window.upload(new FormData(adForm), window.splash.showSuccess, window.splash.showError);
+    window.upload(new FormData(adForm), onSuccessSubmit, window.splash.showError);
     evt.preventDefault();
+
   });
 
 
