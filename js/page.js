@@ -1,5 +1,9 @@
 'use strict';
 (function () {
+  var onLoadError = function (errorMessage) {
+    window.splash.showError(errorMessage);
+  };
+
   var activatePage = function () {
 
     window.load(function (adverts) {
@@ -7,7 +11,7 @@
         window.map.addPins(adverts);
         window.filters.enable();
       }
-    }, window.splash.showError);
+    }, onLoadError);
 
     window.map.enable();
     window.notification.enable();
