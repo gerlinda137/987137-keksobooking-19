@@ -24,6 +24,20 @@
     }
   };
 
+  var renderCardPhotos = function (card, photosUrls) {
+    var photo = card.querySelector('.popup__photos img');
+    var photos = card.querySelector('.popup__photos');
+    var renderPhotos = document.createDocumentFragment();
+    photosUrls.forEach(function (photoUrl) {
+      var photoElement = photo.cloneNode(true);
+      photoElement.src = photoUrl;
+      renderPhotos.appendChild(photoElement);
+    });
+    photo.remove();
+    photos.appendChild(renderPhotos);
+  };
+
+
   window.renderCard = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var title = card.querySelector('.popup__title');
@@ -33,6 +47,9 @@
     var capacity = card.querySelector('.popup__text--capacity');
     var time = card.querySelector('.popup__text--time');
     var featuresItems = card.querySelectorAll('.popup__features li');
+    var description = card.querySelector('.popup__description ');
+    var avatar = card.querySelector('.popup__avatar');
+
 
     title.content = advert.offer.title;
     address.content = advert.offer.address;
@@ -41,6 +58,9 @@
     capacity.content = advert.offer.rooms + 'комнаты для ' + advert.offer.guests + ' гостей';
     time.content = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     removeLiWithoutAnyFeature(advert.offer.features, featuresItems);
+    description.content = advert.offer.description;
+    avatar.src = advert.author.avatar;
+    renderCardPhotos(card, advert.offer.photos);
 
     return card;
   };
