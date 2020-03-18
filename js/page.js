@@ -9,7 +9,6 @@
     window.load(function (adverts) {
       if (adverts.length > 0) {
         window.map.addPins(adverts);
-        window.map.addCards(adverts);
         window.filters.enable();
       }
     }, onLoadError);

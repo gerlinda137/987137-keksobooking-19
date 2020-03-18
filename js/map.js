@@ -20,18 +20,12 @@
   };
 
   var onPinClick = function (advert) {
-    console.log(advert);
-    // show card
-  };
-
-  var addCards = function (adverts) {
-    var card = window.renderCard(adverts[0]);
+    var card = window.renderCard(advert);
     mapFiltersContainer.prepend(card);
   };
 
   window.map = {
     addPins: addPins,
-    addCards: addCards,
     RECT: MapRect,
 
     enable: function () {
