@@ -13,8 +13,15 @@
   var mapFiltersContainer = map.querySelector('.map__filters-container');
 
   var addPins = function (adverts) {
-    var pins = adverts.map(window.renderPin);
+    var pins = adverts.map(function (advert) {
+      return window.renderPin(advert, onPinClick);
+    });
     mapPinsContainer.append.apply(mapPinsContainer, pins);
+  };
+
+  var onPinClick = function (advert) {
+    console.log(advert);
+    // show card
   };
 
   var addCards = function (adverts) {

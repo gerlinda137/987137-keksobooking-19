@@ -8,7 +8,7 @@
 
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  window.renderPin = function (advert) {
+  window.renderPin = function (advert, onClick) {
     var pin = pinTemplate.cloneNode(true);
     var avatar = pin.querySelector('img');
 
@@ -16,6 +16,10 @@
     pin.style.top = (advert.location.y - PinSize.HEIGHT) + 'px';
     avatar.src = advert.author.avatar;
     avatar.alt = advert.offer.title;
+
+    pin.addEventListener('click', function () {
+      onClick(advert);
+    });
 
     return pin;
   };
