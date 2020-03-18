@@ -37,7 +37,6 @@
     photos.appendChild(renderPhotos);
   };
 
-
   window.renderCard = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var title = card.querySelector('.popup__title');
@@ -49,6 +48,7 @@
     var featuresItems = card.querySelectorAll('.popup__features li');
     var description = card.querySelector('.popup__description ');
     var avatar = card.querySelector('.popup__avatar');
+    var closeButton = card.querySelector('.popup__close');
 
 
     title.content = advert.offer.title;
@@ -62,7 +62,14 @@
     avatar.src = advert.author.avatar;
     renderCardPhotos(card, advert.offer.photos);
 
+    var onButtonClose = function () {
+      card.remove();
+    };
+
+    closeButton.addEventListener('click', onButtonClose);
+
     return card;
+
   };
 
 
