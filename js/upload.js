@@ -10,13 +10,7 @@
       onSuccess(xhr.response);
     });
 
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
-
+    window.backend.addErrorListeners(xhr, onError);
 
     xhr.send(data);
   };

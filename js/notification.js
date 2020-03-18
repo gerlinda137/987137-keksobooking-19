@@ -93,14 +93,14 @@
   filterInputType.addEventListener('change', onFilterInputTypeChange);
 
   var onUploadSuccess = function () {
-    window.splash.showMessage('#success', '.success');
+    window.splash.showSuccess();
     if (window.util.isFunction(onSubmit)) {
       onSubmit();
     }
   };
 
   var onUploadError = function () {
-    window.splash.showMessage('#error', '.error', '.error__button');
+    window.splash.showError();
   };
 
   adForm.addEventListener('submit', function (evt) {

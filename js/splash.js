@@ -2,13 +2,12 @@
 
 (function () {
   var showMessage = function (elementId, elementClass, exitButtonSelector) {
-    var message = document.querySelector(elementId).content.querySelector(elementClass);
-    var messageDiv = message.cloneNode(true);
-    document.body.appendChild(messageDiv);
+    var message = document.querySelector(elementId).content.querySelector(elementClass).cloneNode(true);
+    document.body.appendChild(message);
 
     var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
-        messageDiv.remove();
+        message.remove();
         document.body.removeEventListener('keydown', onDocumentKeydown);
       }
     };
@@ -24,15 +23,20 @@
     var onExitButtonClick = function (evt) {
       removeMessage(evt);
     };
-    messageDiv.addEventListener('click', onMessageClick);
+    message.addEventListener('click', onMessageClick);
     document.body.addEventListener('keydown', onDocumentKeydown);
     if (typeof exitButton === 'string') {
-      var exitButton = messageDiv.querySelector(exitButtonSelector);
+      var exitButton = message.querySelector(exitButtonSelector);
       exitButton.addEventListener('click', onExitButtonClick);
     }
   };
 
   window.splash = {
-    showMessage: showMessage,
+    showError: function () {
+      showMessage('#error', '.error', '.error__button');
+    },
+    showSuccess: function () {
+      showMessage('#success', '.success');
+    },
   };
 })();
