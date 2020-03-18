@@ -9,15 +9,22 @@
   };
 
   var map = document.querySelector('.map');
-  var mapPinsContainer = document.querySelector('.map__pins');
+  var mapPinsContainer = map.querySelector('.map__pins');
+  var mapFiltersContainer = map.querySelector('.map__filters-container');
 
   var addPins = function (adverts) {
     var pins = adverts.map(window.renderPin);
     mapPinsContainer.append.apply(mapPinsContainer, pins);
   };
 
+  var addCards = function (adverts) {
+    var card = window.renderCard(adverts[0]);
+    mapFiltersContainer.prepend(card);
+  };
+
   window.map = {
     addPins: addPins,
+    addCards: addCards,
     RECT: MapRect,
 
     enable: function () {
