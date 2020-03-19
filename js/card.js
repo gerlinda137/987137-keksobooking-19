@@ -51,14 +51,14 @@
     var closeButton = card.querySelector('.popup__close');
 
 
-    title.content = advert.offer.title;
-    address.content = advert.offer.address;
-    price.content = advert.offer.price + '&#x20bd;/ночь';
-    type.content = accommodationType[advert.offer.type];
-    capacity.content = advert.offer.rooms + 'комнаты для ' + advert.offer.guests + ' гостей';
-    time.content = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
+    title.textContent = advert.offer.title;
+    address.textContent = advert.offer.address;
+    price.textContent = advert.offer.price + '&#x20bd;/ночь';
+    type.textContent = accommodationType[advert.offer.type];
+    capacity.textContent = advert.offer.rooms + 'комнаты для ' + advert.offer.guests + ' гостей';
+    time.textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     removeLiWithoutAnyFeature(advert.offer.features, featuresItems);
-    description.content = advert.offer.description;
+    description.textContent = advert.offer.description;
     avatar.src = advert.author.avatar;
     renderCardPhotos(card, advert.offer.photos);
 
