@@ -20,7 +20,7 @@
     var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
         message.remove();
-        document.body.removeEventListener('keydown', onDocumentKeydown);
+        window.removeEventListener('keydown', onDocumentKeydown);
       }
     };
 
@@ -36,7 +36,7 @@
       removeMessage(evt);
     };
     message.addEventListener('click', onMessageClick);
-    document.body.addEventListener('keydown', onDocumentKeydown);
+    window.addEventListener('keydown', onDocumentKeydown);
     if (type === MessageType.ERROR) {
       var exitButton = message.querySelector('.error__button');
       exitButton.addEventListener('click', onExitButtonClick);
