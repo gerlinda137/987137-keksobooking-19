@@ -6,6 +6,8 @@
     ERROR: 'error',
   };
 
+  var main = document.querySelector('main');
+
   var messageToTemplate = {
     error: document.querySelector('#error').content.querySelector('.error'),
     success: document.querySelector('#success').content.querySelector('.success'),
@@ -13,7 +15,7 @@
 
   var showMessage = function (type) {
     var message = messageToTemplate[type].cloneNode(true);
-    document.body.appendChild(message);
+    main.appendChild(message);
 
     var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {

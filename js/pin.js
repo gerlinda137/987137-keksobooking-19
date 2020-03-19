@@ -18,13 +18,12 @@
     avatar.alt = advert.offer.title;
 
     pin.addEventListener('click', function () {
+      var activePins = document.querySelectorAll('.map__pin--active');
+      activePins.forEach(function (currentPin) {
+        currentPin.classList.remove('map__pin--active');
+      });
+      pin.classList.add('map__pin--active');
       onSelected(advert);
-    });
-
-    pin.addEventListener('keydown', function (evt) {
-      if (window.util.isEnterKey(evt)) {
-        onSelected(advert);
-      }
     });
 
     return pin;

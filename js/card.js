@@ -3,7 +3,7 @@
 (function () {
 
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-  var accommodationType = {
+  var accommodationTypeEnToRu = {
     flat: 'Квартира',
     bungalo: 'Бунгало',
     house: 'Дом',
@@ -54,7 +54,7 @@
     title.textContent = advert.offer.title;
     address.textContent = advert.offer.address;
     price.textContent = advert.offer.price + ' ₽/ночь';
-    type.textContent = accommodationType[advert.offer.type];
+    type.textContent = accommodationTypeEnToRu[advert.offer.type];
     capacity.textContent = advert.offer.rooms + 'комнаты для ' + advert.offer.guests + ' гостей';
     time.textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     removeLiWithoutAnyFeature(advert.offer.features, featuresItems);
@@ -80,8 +80,5 @@
 
   };
 
-
-  // features = array of strings
-  // lihi - array of <li>
 
 })();

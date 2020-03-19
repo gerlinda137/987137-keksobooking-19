@@ -22,6 +22,7 @@
     window.map.disable();
     window.mainPin.reset();
     window.filters.disable();
+
   };
 
   var onDomLoad = function () {

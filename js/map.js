@@ -11,6 +11,7 @@
   var map = document.querySelector('.map');
   var mapPinsContainer = map.querySelector('.map__pins');
   var mapFiltersContainer = map.querySelector('.map__filters-container');
+  var card = null;
 
   var addPins = function (adverts) {
     var pins = adverts.map(function (advert) {
@@ -19,12 +20,15 @@
     mapPinsContainer.append.apply(mapPinsContainer, pins);
   };
 
-
-  var onPinClick = function (advert) {
-    var card = document.querySelector('.map__card');
+  var removeCard = function () {
     if (card !== null) {
       card.remove();
+      card = null;
     }
+  };
+
+  var onPinClick = function (advert) {
+    removeCard();
     card = window.renderCard(advert);
     mapFiltersContainer.prepend(card);
   };
@@ -38,6 +42,7 @@
     },
     disable: function () {
       map.classList.add('map--faded');
+      removeCard();
     },
     removePins: function () {
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
