@@ -19,8 +19,13 @@
     mapPinsContainer.append.apply(mapPinsContainer, pins);
   };
 
+
   var onPinClick = function (advert) {
-    var card = window.renderCard(advert);
+    var card = document.querySelector('.map__card');
+    if (card !== null) {
+      card.remove();
+    }
+    card = window.renderCard(advert);
     mapFiltersContainer.prepend(card);
   };
 

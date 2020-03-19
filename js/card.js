@@ -53,7 +53,7 @@
 
     title.textContent = advert.offer.title;
     address.textContent = advert.offer.address;
-    price.textContent = advert.offer.price + '&#x20bd;/ночь';
+    price.textContent = advert.offer.price + ' ₽/ночь';
     type.textContent = accommodationType[advert.offer.type];
     capacity.textContent = advert.offer.rooms + 'комнаты для ' + advert.offer.guests + ' гостей';
     time.textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
@@ -62,11 +62,19 @@
     avatar.src = advert.author.avatar;
     renderCardPhotos(card, advert.offer.photos);
 
-    var onButtonClose = function () {
+    var onCloseButtonClick = function () {
       card.remove();
     };
 
-    closeButton.addEventListener('click', onButtonClose);
+    var onCardKeydown = function (evt) {
+      if (window.util.isEscapeKey(evt)) {
+        card.remove();
+      }
+    };
+
+
+    document.body.addEventListener('keydown', onCardKeydown);
+    closeButton.addEventListener('click', onCloseButtonClick);
 
     return card;
 
