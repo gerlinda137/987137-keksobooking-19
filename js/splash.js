@@ -19,8 +19,13 @@
 
     var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
-        message.remove();
-        window.removeEventListener('keydown', onDocumentKeydown);
+        var isErrorMessage = evt.target.classList.contains('error__message');
+        var isSuccessMessage = evt.target.classList.contains('success__message');
+
+        if (!isErrorMessage && !isSuccessMessage) {
+          message.remove();
+          window.removeEventListener('keydown', onDocumentKeydown);
+        }
       }
     };
 

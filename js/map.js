@@ -10,7 +10,6 @@
 
   var map = document.querySelector('.map');
   var mapPinsContainer = map.querySelector('.map__pins');
-  var mapFiltersContainer = map.querySelector('.map__filters-container');
   var card = null;
 
   var addPins = function (adverts) {
@@ -30,7 +29,7 @@
   var onPinClick = function (advert) {
     removeCard();
     card = window.renderCard(advert);
-    mapFiltersContainer.prepend(card);
+    mapPinsContainer.appendChild(card);
   };
 
   window.map = {
