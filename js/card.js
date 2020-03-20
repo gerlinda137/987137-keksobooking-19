@@ -82,26 +82,11 @@
   window.renderCard = function (advert) {
     var offer = advert.offer;
     var card = cardTemplate.cloneNode(true);
-    // var title = card.querySelector('.popup__title');
-    // var address = card.querySelector('.popup__text--address');
-    // var price = card.querySelector('.popup__text--price');
-    // var type = card.querySelector('.popup__type');
     var capacity = card.querySelector('.popup__text--capacity');
     var time = card.querySelector('.popup__text--time');
-    // var features = card.querySelector('.popup__features');
-    // var featuresItems = features.querySelectorAll('li');
-    // var description = card.querySelector('.popup__description');
     var avatar = card.querySelector('.popup__avatar');
     var closeButton = card.querySelector('.popup__close');
     var photos = card.querySelector('.popup__photos');
-
-
-    // title.textContent = offer.title;
-    // address.textContent = offer.address;
-    // price.textContent = offer.price + ' ₽/ночь';
-    // type.textContent = accommodationTypeEnToRu[offer.type];
-    // removeLiWithoutAnyFeature(offer.features, featuresItems);
-    // description.textContent = offer.description;
 
     var offerKeys = Object.keys(offerToSelectorAndRender);
     offerKeys.forEach(function (key) {

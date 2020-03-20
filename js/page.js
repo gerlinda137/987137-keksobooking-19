@@ -4,15 +4,17 @@
     window.splash.showError();
   };
 
+  var allAdverts = null;
+
   var activatePage = function () {
 
     window.load(function (adverts) {
-      adverts = adverts.filter(function (advert) {
+      allAdverts = adverts.filter(function (advert) {
         return advert.offer;
       });
 
-      if (adverts.length > 0) {
-        window.map.addPins(adverts);
+      if (allAdverts.length > 0) {
+        window.map.addPins(allAdverts);
         window.filters.enable();
       }
     }, onLoadError);
