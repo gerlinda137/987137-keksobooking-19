@@ -7,6 +7,10 @@
   var activatePage = function () {
 
     window.load(function (adverts) {
+      adverts = adverts.filter(function (advert) {
+        return advert.offer;
+      });
+
       if (adverts.length > 0) {
         window.map.addPins(adverts);
         window.filters.enable();

@@ -117,6 +117,7 @@
   };
 
   var reset = function () {
+    mainPin.focus();
     resetMainPinPosition();
     handleChange(getMainPinCoords(MainPinSize.RADIUS));
 
