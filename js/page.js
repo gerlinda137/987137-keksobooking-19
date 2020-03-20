@@ -13,10 +13,13 @@
         return advert.offer;
       });
 
+      var reducedAdverts = allAdverts.slice(0, 5);
+
       if (allAdverts.length > 0) {
-        window.map.addPins(allAdverts);
+        window.map.addPins(reducedAdverts);
         window.filters.enable();
       }
+
     }, onLoadError);
 
     window.map.enable();
