@@ -46,6 +46,24 @@
     deactivatePage();
   };
 
+
+  var filterAdverts = function (adverts) {
+    var filteredAdverts = [];
+
+    for (var i = 0; i < adverts.length; i++) {
+      var advert = adverts[i];
+
+      if (window.filters.check(advert)) {
+        filteredAdverts.push(advert);
+      }
+      if (filteredAdverts.length >= MAX_PINS_ALLOWED) {
+        break;
+      }
+    }
+
+    return filteredAdverts;
+  };
+
   document.addEventListener('DOMContentLoaded', onDomLoad);
 
   window.notification.setOnReset(function () {
@@ -58,16 +76,8 @@
     deactivatePage();
   });
 
-  window.filters.setOnChange(function (housingType) {
-    if (housingType === 'any') {
-      showPins(allAdverts);
-
-    } else {
-      var filteredAdverts = allAdverts.filter(function (advert) {
-        return advert.offer.type === housingType;
-      });
-      showPins(filteredAdverts);
-    }
+  window.filters.setOnChange(function () {
+    showPins(filterAdverts(allAdverts));
   });
 
   window.mainPin.setOnFirstAction(function () {

@@ -6,6 +6,14 @@
   var housingType = mapFilters.querySelector('#housing-type');
   var onChange = null;
 
+  var filterHousingType = function (advert) {
+    return housingType.value === 'any' || housingType.value === advert.offer.type;
+  };
+
+  var check = function (advert) {
+    filterHousingType(advert);
+  };
+
   var onHousingTypeChange = function (evt) {
     if (window.util.isFunction(onChange)) {
       onChange(evt.target.value);
@@ -25,6 +33,7 @@
     setOnChange: function (callback) {
       onChange = callback;
     },
+    check: check,
   };
 
 })();
