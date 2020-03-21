@@ -13,47 +13,44 @@
     success: document.querySelector('#success').content.querySelector('.success'),
   };
 
-  var showMessage = function (type) {
-    var message = messageToTemplate[type].cloneNode(true);
-    main.appendChild(message);
+  var addEventListeners = function (message, type) {
+    var textBlockClass = type + '__message';
 
-    var removeMessage = function (evt) {
-      if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
-        var isErrorMessage = evt.target.classList.contains('error__message');
-        var isSuccessMessage = evt.target.classList.contains('success__message');
+    var isNotTextBlock = function (evt) {
+      return !evt.target.classList.contains(textBlockClass);
+    };
 
-        if (!isErrorMessage && !isSuccessMessage) {
-          message.remove();
-          window.removeEventListener('keydown', onDocumentKeydown);
-        }
+    var removeMessage = function () {
+      message.remove();
+      document.removeEventListener('keydown', onMessageEscKeydown);
+    };
+
+    var onMessageEscKeydown = function (evt) {
+      if (window.util.isEscapeKey(evt)) {
+        removeMessage();
       }
     };
 
-    var onMessageClick = function (evt) {
-      removeMessage(evt);
-    };
+    message.addEventListener('click', function (evt) {
+      if (window.util.isMainMouseButton(evt) && isNotTextBlock(evt)) {
+        removeMessage();
+      }
+    });
 
-    var onDocumentKeydown = function (evt) {
-      removeMessage(evt);
-    };
+    document.addEventListener('keydown', onMessageEscKeydown);
+  };
 
-    var onExitButtonClick = function (evt) {
-      removeMessage(evt);
+  var makeShowMessage = function (type) {
+    return function showMessage() {
+      var message = messageToTemplate[type].cloneNode(true);
+
+      main.appendChild(message);
+      addEventListeners(message, type);
     };
-    message.addEventListener('click', onMessageClick);
-    window.addEventListener('keydown', onDocumentKeydown);
-    if (type === MessageType.ERROR) {
-      var exitButton = message.querySelector('.error__button');
-      exitButton.addEventListener('click', onExitButtonClick);
-    }
   };
 
   window.splash = {
-    showError: function () {
-      showMessage(MessageType.ERROR);
-    },
-    showSuccess: function () {
-      showMessage(MessageType.SUCCESS);
-    },
+    showError: makeShowMessage(MessageType.ERROR),
+    showSuccess: makeShowMessage(MessageType.SUCCESS),
   };
 })();
