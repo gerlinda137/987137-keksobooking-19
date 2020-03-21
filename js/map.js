@@ -44,8 +44,9 @@
       removeCard();
     },
     removePins: function () {
+      removeCard();
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
         .forEach(window.util.removeElement);
-    }
+    },
   };
 })();

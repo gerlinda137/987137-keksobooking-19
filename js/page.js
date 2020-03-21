@@ -6,6 +6,11 @@
 
   var allAdverts = null;
 
+  var showPins = function (requiredAdverts) {
+    window.map.removePins();
+    window.map.addPins(requiredAdverts.slice(0, 5));
+  };
+
   var activatePage = function () {
 
     window.load(function (adverts) {
@@ -13,10 +18,10 @@
         return advert.offer;
       });
 
-      var reducedAdverts = allAdverts.slice(0, 5);
+      var reducedAdverts = allAdverts;
 
       if (allAdverts.length > 0) {
-        window.map.addPins(reducedAdverts);
+        showPins(reducedAdverts);
         window.filters.enable();
       }
 
@@ -48,6 +53,18 @@
   window.notification.setOnSubmit(function () {
     window.map.removePins();
     deactivatePage();
+  });
+
+  window.filters.setOnChange(function (housingType) {
+    if (housingType === 'any') {
+      showPins(allAdverts);
+
+    } else {
+      var filteredAdverts = allAdverts.filter(function (advert) {
+        return advert.offer.type === housingType;
+      });
+      showPins(filteredAdverts);
+    }
   });
 
   window.mainPin.setOnFirstAction(function () {
