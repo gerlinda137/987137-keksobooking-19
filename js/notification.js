@@ -26,7 +26,6 @@
   var filterInputTimeOut = adForm.querySelector('#timeout');
   var filterInputType = adForm.querySelector('#type');
   var filterInputPrice = adForm.querySelector('#price');
-  var submitButton = adForm.querySelector('.ad-form__submit');
 
   var capacityToIndex = {};
   capacityList.forEach(function (option) {
@@ -116,7 +115,6 @@
       adForm.classList.remove('ad-form--disabled');
     },
     disable: function () {
-      submitButton.blur();
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
       adForm.reset();

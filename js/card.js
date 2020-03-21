@@ -78,10 +78,11 @@
     },
   };
 
+  var card;
 
-  window.renderCard = function (advert) {
+  var renderCard = function (advert) {
     var offer = advert.offer;
-    var card = cardTemplate.cloneNode(true);
+    card = cardTemplate.cloneNode(true);
     var capacity = card.querySelector('.popup__text--capacity');
     var time = card.querySelector('.popup__text--time');
     var avatar = card.querySelector('.popup__avatar');
@@ -133,10 +134,19 @@
       }
     };
 
-    document.body.addEventListener('keydown', onCardKeydown);
+    document.addEventListener('keydown', onCardKeydown);
     closeButton.addEventListener('click', onCloseButtonClick);
 
+
     return card;
+  };
+  var showCard = function (advert, map) {
+    card = renderCard(advert);
+    map.appendChild(card);
+  };
+
+  window.card = {
+    showCard: showCard,
   };
 
 })();

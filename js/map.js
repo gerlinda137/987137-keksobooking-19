@@ -28,8 +28,7 @@
 
   var onPinClick = function (advert) {
     removeCard();
-    card = window.renderCard(advert);
-    mapPinsContainer.appendChild(card);
+    window.card.showCard(advert, map);
   };
 
   window.map = {
