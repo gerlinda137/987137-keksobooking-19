@@ -20,6 +20,7 @@
   var housingPrice = mapFilters.querySelector('#housing-price');
   var housingRooms = mapFilters.querySelector('#housing-rooms');
   var housingGuests = mapFilters.querySelector('#housing-guests');
+
   var onChange = null;
 
   var filterHousingType = function (advert) {
@@ -48,11 +49,25 @@
     return housingGuests.value === FilterOptions.ANY || parseInt(housingGuests.value, 10) === advert.offer.guests;
   };
 
+  var filterHousingFeatures = function (advert) {
+    var checkedFeatures = mapFilters.querySelectorAll('#housing-features input:checked');
+    if (checkedFeatures.length === 0) {
+      return true;
+    }
+    for (var i = 0; i < checkedFeatures.length; i++) {
+      if (!advert.offer.features.includes(checkedFeatures[i].value)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   var checkOption = function (advert) {
     return filterHousingType(advert)
           && filterHousingRooms(advert)
           && filterHousingGuests(advert)
-          && filterHousingPrice(advert);
+          && filterHousingPrice(advert)
+          && filterHousingFeatures(advert);
   };
 
   var onMapFiltersChange = function (evt) {
