@@ -38,6 +38,8 @@
     window.mainPin.reset();
     window.filters.disable();
 
+    allAdverts = null;
+
   };
 
   var onDomLoad = function () {

@@ -90,6 +90,8 @@
     }
   };
 
+  var offerKeys = Object.keys(offerToSelectorAndRender);
+
   var renderCard = function (advert) {
     var offer = advert.offer;
     card = cardTemplate.cloneNode(true);
@@ -101,30 +103,29 @@
 
     avatar.src = advert.author.avatar;
 
-    var offerKeys = Object.keys(offerToSelectorAndRender);
     offerKeys.forEach(function (key) {
       var value = offerToSelectorAndRender[key];
       var element = card.querySelector(value.selector);
-      if (offer[key]) {
+      if (offer[key] !== undefined) {
         value.render(offer[key], element);
       } else {
         element.remove();
       }
     });
 
-    if (offer.rooms && offer.quests) {
+    if (offer.rooms !== undefined && offer.quests !== undefined) {
       capacity.textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';
     } else {
       capacity.remove();
     }
 
-    if (offer.checkin && offer.checkout) {
+    if (offer.checkin !== undefined && offer.checkout !== undefined) {
       time.textContent = 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout;
     } else {
       time.remove();
     }
 
-    if (offer.photos) {
+    if (offer.photos !== undefined) {
       renderCardPhotos(card, offer.photos);
     } else {
       photos.remove();

@@ -18,7 +18,6 @@
     avatar.alt = advert.offer.title;
 
     pin.addEventListener('click', function () {
-
       onSelected(pin, advert);
     });
 
