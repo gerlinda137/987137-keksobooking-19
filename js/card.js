@@ -112,13 +112,13 @@
       }
     });
 
-    if (offer.rooms || offer.quests) {
+    if (offer.rooms && offer.quests) {
       capacity.textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';
     } else {
       capacity.remove();
     }
 
-    if (offer.checkin || offer.checkout) {
+    if (offer.checkin && offer.checkout) {
       time.textContent = 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout;
     } else {
       time.remove();
