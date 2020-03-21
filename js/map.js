@@ -33,11 +33,11 @@
     pin.classList.add('map__pin--active');
   };
 
-  var handleOnCardRemove = function () {
+  var onCardRemove = function () {
     deactivatePins();
   };
 
-  window.card.setOnRemove(handleOnCardRemove);
+  window.card.setOnRemove(onCardRemove);
 
   window.map = {
     addPins: addPins,

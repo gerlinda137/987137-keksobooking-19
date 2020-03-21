@@ -70,11 +70,11 @@
           && filterHousingFeatures(advert);
   };
 
-  var onMapFiltersChange = function (evt) {
+  var onMapFiltersChange = window.debounce(function (evt) {
     if (window.util.isFunction(onChange)) {
       onChange(evt.target.value);
     }
-  };
+  });
 
   mapFilters.addEventListener('change', onMapFiltersChange);
 
