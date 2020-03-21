@@ -81,12 +81,12 @@
   var card = null;
 
   var onCloseButtonClick = function () {
-    card.remove();
+    removeCard();
   };
 
   var onCardKeydown = function (evt) {
     if (window.util.isEscapeKey(evt)) {
-      card.remove();
+      removeCard();
     }
   };
 
@@ -149,11 +149,22 @@
       card = null;
     }
     document.body.removeEventListener('keydown', onCardKeydown);
+
+    if (window.util.isFunction(onRemove)) {
+      onRemove();
+    }
+  };
+
+  var onRemove = null;
+
+  var setOnRemove = function (callback) {
+    onRemove = callback;
   };
 
   window.card = {
     showCard: showCard,
     removeCard: removeCard,
+    setOnRemove: setOnRemove,
   };
 
 })();

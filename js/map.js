@@ -25,15 +25,15 @@
     });
   };
 
-
   var onPinClick = function (pin, advert) {
     deactivatePins();
     pin.classList.add('map__pin--active');
 
-
     window.card.removeCard();
     window.card.showCard(advert, map);
   };
+
+  window.card.setOnRemove(deactivatePins);
 
   window.map = {
     addPins: addPins,
@@ -53,5 +53,6 @@
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
         .forEach(window.util.removeElement);
     },
+    deactivatePins: deactivatePins,
   };
 })();
