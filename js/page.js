@@ -56,7 +56,7 @@
       if (window.filters.check(advert)) {
         filteredAdverts.push(advert);
       }
-      if (filteredAdverts.length >= MAX_PINS_ALLOWED) {
+      if (filteredAdverts.length === MAX_PINS_ALLOWED) {
         break;
       }
     }

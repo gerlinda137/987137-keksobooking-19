@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var FILTER_ANY = 'any';
 
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select');
@@ -7,10 +8,10 @@
   var onChange = null;
 
   var filterHousingType = function (advert) {
-    return housingType.value === 'any' || housingType.value === advert.offer.type;
+    return housingType.value === FILTER_ANY || housingType.value === advert.offer.type;
   };
 
-  var check = function (advert) {
+  var checkOption = function (advert) {
     return filterHousingType(advert);
   };
 
@@ -33,7 +34,7 @@
     setOnChange: function (callback) {
       onChange = callback;
     },
-    check: check,
+    checkOption: checkOption,
   };
 
 })();
