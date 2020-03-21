@@ -101,10 +101,10 @@
 
     var offerKeys = Object.keys(offerToSelectorAndRender);
     offerKeys.forEach(function (key) {
-      var val = offerToSelectorAndRender[key];
-      var element = card.querySelector(val.selector);
+      var value = offerToSelectorAndRender[key];
+      var element = card.querySelector(value.selector);
       if (offer[key]) {
-        val.render(offer[key], element);
+        value.render(offer[key], element);
       } else {
         element.remove();
       }
