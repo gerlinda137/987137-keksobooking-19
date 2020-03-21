@@ -99,6 +99,8 @@
     var closeButton = card.querySelector('.popup__close');
     var photos = card.querySelector('.popup__photos');
 
+    avatar.src = advert.author.avatar;
+
     var offerKeys = Object.keys(offerToSelectorAndRender);
     offerKeys.forEach(function (key) {
       var value = offerToSelectorAndRender[key];
@@ -120,12 +122,6 @@
       time.textContent = 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout;
     } else {
       time.remove();
-    }
-
-    if (advert.author.avatar) {
-      avatar.src = advert.author.avatar;
-    } else {
-      avatar.remove();
     }
 
     if (offer.photos) {
