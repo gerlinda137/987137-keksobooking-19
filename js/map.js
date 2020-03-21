@@ -10,7 +10,6 @@
 
   var map = document.querySelector('.map');
   var mapPinsContainer = map.querySelector('.map__pins');
-  var card = null;
 
   var addPins = function (adverts) {
     var pins = adverts.map(function (advert) {
@@ -19,15 +18,9 @@
     mapPinsContainer.append.apply(mapPinsContainer, pins);
   };
 
-  var removeCard = function () {
-    if (card !== null) {
-      card.remove();
-      card = null;
-    }
-  };
 
   var onPinClick = function (advert) {
-    removeCard();
+    window.card.removeCard();
     window.card.showCard(advert, map);
   };
 
@@ -40,10 +33,10 @@
     },
     disable: function () {
       map.classList.add('map--faded');
-      removeCard();
+      window.card.removeCard();
     },
     removePins: function () {
-      removeCard();
+      window.card.removeCard();
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
         .forEach(window.util.removeElement);
     },

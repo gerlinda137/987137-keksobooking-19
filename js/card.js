@@ -78,7 +78,17 @@
     },
   };
 
-  var card;
+  var card = null;
+
+  var onCloseButtonClick = function () {
+    card.remove();
+  };
+
+  var onCardKeydown = function (evt) {
+    if (window.util.isEscapeKey(evt)) {
+      card.remove();
+    }
+  };
 
   var renderCard = function (advert) {
     var offer = advert.offer;
@@ -124,29 +134,29 @@
       photos.remove();
     }
 
-    var onCloseButtonClick = function () {
-      card.remove();
-    };
-
-    var onCardKeydown = function (evt) {
-      if (window.util.isEscapeKey(evt)) {
-        card.remove();
-      }
-    };
-
     document.addEventListener('keydown', onCardKeydown);
     closeButton.addEventListener('click', onCloseButtonClick);
 
 
     return card;
   };
+
   var showCard = function (advert, map) {
     card = renderCard(advert);
     map.appendChild(card);
   };
 
+  var removeCard = function () {
+    if (card !== null) {
+      card.remove();
+      card = null;
+    }
+    document.body.removeEventListener('keydown', onCardKeydown);
+  };
+
   window.card = {
     showCard: showCard,
+    removeCard: removeCard,
   };
 
 })();
