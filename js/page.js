@@ -1,31 +1,32 @@
 'use strict';
 (function () {
-  var onLoadError = function () {
+  var MAX_PINS_ALLOWED = 5;
+
+  var onAdvertsLoadError = function () {
     window.splash.showError();
   };
 
   var allAdverts = null;
 
-  var showPins = function (requiredAdverts) {
+  var showPins = function (adverts) {
     window.map.removePins();
-    window.map.addPins(requiredAdverts.slice(0, 5));
+    window.map.addPins(adverts.slice(0, MAX_PINS_ALLOWED));
+  };
+
+  var onAdvertsLoad = function (adverts) {
+    allAdverts = adverts.filter(function (advert) {
+      return advert.offer;
+    });
+
+    if (allAdverts.length > 0) {
+      showPins(allAdverts);
+      window.filters.enable();
+    }
   };
 
   var activatePage = function () {
 
-    window.load(function (adverts) {
-      allAdverts = adverts.filter(function (advert) {
-        return advert.offer;
-      });
-
-      var reducedAdverts = allAdverts;
-
-      if (allAdverts.length > 0) {
-        showPins(reducedAdverts);
-        window.filters.enable();
-      }
-
-    }, onLoadError);
+    window.load(onAdvertsLoad, onAdvertsLoadError);
 
     window.map.enable();
     window.notification.enable();
