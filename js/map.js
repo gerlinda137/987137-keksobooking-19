@@ -25,15 +25,19 @@
     });
   };
 
-
   var onPinClick = function (pin, advert) {
     deactivatePins();
+
+    window.card.remove();
+    window.card.show(advert, map);
     pin.classList.add('map__pin--active');
-
-
-    window.card.removeCard();
-    window.card.showCard(advert, map);
   };
+
+  var handleOnCardRemove = function () {
+    deactivatePins();
+  };
+
+  window.card.setOnRemove(handleOnCardRemove);
 
   window.map = {
     addPins: addPins,
@@ -45,13 +49,14 @@
     disable: function () {
       map.classList.add('map--faded');
       deactivatePins();
-      window.card.removeCard();
+      window.card.remove();
     },
     removePins: function () {
       deactivatePins();
-      window.card.removeCard();
+      window.card.remove();
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
         .forEach(window.util.removeElement);
     },
+    deactivatePins: deactivatePins,
   };
 })();

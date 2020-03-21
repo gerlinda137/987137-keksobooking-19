@@ -1,10 +1,19 @@
 'use strict';
 (function () {
+  var FILTER_ANY = 'any';
 
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select');
   var housingType = mapFilters.querySelector('#housing-type');
   var onChange = null;
+
+  var filterHousingType = function (advert) {
+    return housingType.value === FILTER_ANY || housingType.value === advert.offer.type;
+  };
+
+  var checkOption = function (advert) {
+    return filterHousingType(advert);
+  };
 
   var onHousingTypeChange = function (evt) {
     if (window.util.isFunction(onChange)) {
@@ -25,6 +34,7 @@
     setOnChange: function (callback) {
       onChange = callback;
     },
+    checkOption: checkOption,
   };
 
 })();

@@ -81,12 +81,12 @@
   var card = null;
 
   var onCloseButtonClick = function () {
-    card.remove();
+    remove();
   };
 
   var onCardKeydown = function (evt) {
     if (window.util.isEscapeKey(evt)) {
-      card.remove();
+      remove();
     }
   };
 
@@ -113,7 +113,7 @@
       }
     });
 
-    if (offer.rooms !== undefined && offer.quests !== undefined) {
+    if (offer.rooms !== undefined && offer.guests !== undefined) {
       capacity.textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';
     } else {
       capacity.remove();
@@ -138,22 +138,33 @@
     return card;
   };
 
-  var showCard = function (advert, map) {
+  var show = function (advert, map) {
     card = renderCard(advert);
     map.appendChild(card);
   };
 
-  var removeCard = function () {
+  var remove = function () {
     if (card !== null) {
       card.remove();
       card = null;
     }
     document.body.removeEventListener('keydown', onCardKeydown);
+
+    if (window.util.isFunction(onRemove)) {
+      onRemove();
+    }
+  };
+
+  var onRemove = null;
+
+  var setOnRemove = function (callback) {
+    onRemove = callback;
   };
 
   window.card = {
-    showCard: showCard,
-    removeCard: removeCard,
+    show: show,
+    remove: remove,
+    setOnRemove: setOnRemove,
   };
 
 })();
