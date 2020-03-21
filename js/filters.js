@@ -11,7 +11,7 @@
   };
 
   var check = function (advert) {
-    filterHousingType(advert);
+    return filterHousingType(advert);
   };
 
   var onHousingTypeChange = function (evt) {
