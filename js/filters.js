@@ -5,23 +5,28 @@
   var mapFilters = document.querySelector('.map__filters');
   var mapFiltersInputs = mapFilters.querySelectorAll('input, select');
   var housingType = mapFilters.querySelector('#housing-type');
+  var housingRooms = mapFilters.querySelector('#housing-rooms');
   var onChange = null;
 
   var filterHousingType = function (advert) {
     return housingType.value === FILTER_ANY || housingType.value === advert.offer.type;
   };
-
-  var checkOption = function (advert) {
-    return filterHousingType(advert);
+  var filterHousingRooms = function (advert) {
+    return housingRooms.value === FILTER_ANY || parseInt(housingRooms.value, 10) === advert.offer.rooms;
   };
 
-  var onHousingTypeChange = function (evt) {
+  var checkOption = function (advert) {
+    return filterHousingType(advert)
+          && filterHousingRooms(advert);
+  };
+
+  var onMapFiltersChange = function (evt) {
     if (window.util.isFunction(onChange)) {
       onChange(evt.target.value);
     }
   };
 
-  housingType.addEventListener('change', onHousingTypeChange);
+  mapFilters.addEventListener('change', onMapFiltersChange);
 
   window.filters = {
     enable: function () {
