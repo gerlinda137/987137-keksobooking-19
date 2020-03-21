@@ -18,8 +18,19 @@
     mapPinsContainer.append.apply(mapPinsContainer, pins);
   };
 
+  var deactivatePins = function () {
+    var activePins = document.querySelectorAll('.map__pin--active');
+    activePins.forEach(function (currentPin) {
+      currentPin.classList.remove('map__pin--active');
+    });
+  };
 
-  var onPinClick = function (advert) {
+
+  var onPinClick = function (pin, advert) {
+    deactivatePins();
+    pin.classList.add('map__pin--active');
+
+
     window.card.removeCard();
     window.card.showCard(advert, map);
   };
@@ -33,9 +44,11 @@
     },
     disable: function () {
       map.classList.add('map--faded');
+      deactivatePins();
       window.card.removeCard();
     },
     removePins: function () {
+      deactivatePins();
       window.card.removeCard();
       mapPinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)')
         .forEach(window.util.removeElement);
