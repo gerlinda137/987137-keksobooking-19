@@ -1,15 +1,31 @@
 'use strict';
 
 (function () {
-  var showMessage = function (elementId, elementClass, exitButtonSelector) {
-    var message = document.querySelector(elementId).content.querySelector(elementClass);
-    var messageDiv = message.cloneNode(true);
-    document.body.appendChild(messageDiv);
+  var MessageType = {
+    SUCCESS: 'success',
+    ERROR: 'error',
+  };
+
+  var main = document.querySelector('main');
+
+  var messageToTemplate = {
+    error: document.querySelector('#error').content.querySelector('.error'),
+    success: document.querySelector('#success').content.querySelector('.success'),
+  };
+
+  var showMessage = function (type) {
+    var message = messageToTemplate[type].cloneNode(true);
+    main.appendChild(message);
 
     var removeMessage = function (evt) {
       if (window.util.isMainMouseButton(evt) || window.util.isEscapeKey(evt)) {
-        messageDiv.remove();
-        document.body.removeEventListener('keydown', onDocumentKeydown);
+        var isErrorMessage = evt.target.classList.contains('error__message');
+        var isSuccessMessage = evt.target.classList.contains('success__message');
+
+        if (!isErrorMessage && !isSuccessMessage) {
+          message.remove();
+          window.removeEventListener('keydown', onDocumentKeydown);
+        }
       }
     };
 
@@ -24,15 +40,20 @@
     var onExitButtonClick = function (evt) {
       removeMessage(evt);
     };
-    messageDiv.addEventListener('click', onMessageClick);
-    document.body.addEventListener('keydown', onDocumentKeydown);
-    if (typeof exitButton === 'string') {
-      var exitButton = messageDiv.querySelector(exitButtonSelector);
+    message.addEventListener('click', onMessageClick);
+    window.addEventListener('keydown', onDocumentKeydown);
+    if (type === MessageType.ERROR) {
+      var exitButton = message.querySelector('.error__button');
       exitButton.addEventListener('click', onExitButtonClick);
     }
   };
 
   window.splash = {
-    showMessage: showMessage,
+    showError: function () {
+      showMessage(MessageType.ERROR);
+    },
+    showSuccess: function () {
+      showMessage(MessageType.SUCCESS);
+    },
   };
 })();

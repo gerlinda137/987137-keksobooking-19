@@ -1,22 +1,26 @@
 'use strict';
 (function () {
   var KeyboardKey = {
-    ENTER_KEY: 'Enter',
-    MAIN_BUTTON: 0,
-    ESCAPE_KEY: 'Escape',
+    ENTER: 'Enter',
+    ESCAPE: 'Escape',
   };
+
+  var MouseButton = {
+    MAIN: 0,
+  };
+
 
   window.util = {
     isEnterKey: function (evt) {
-      return evt.key === KeyboardKey.ENTER_KEY;
+      return evt.key === KeyboardKey.ENTER;
     },
 
     isEscapeKey: function (evt) {
-      return evt.key === KeyboardKey.ESCAPE_KEY;
+      return evt.key === KeyboardKey.ESCAPE;
     },
 
     isMainMouseButton: function (evt) {
-      return evt.button === KeyboardKey.MAIN_BUTTON;
+      return evt.button === MouseButton.MAIN;
     },
 
     setDisabled: function (element) {
