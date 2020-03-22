@@ -2,61 +2,53 @@
 
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
   var fileChooserAvatar = document.querySelector('#avatar');
-  var previewAvatar = document.querySelector('.ad-form-header__preview img');
-  var fileChooserImages = document.querySelector('#images');
-  var previewImages = document.querySelector('.ad-form__photo');
+  var previewAvatar = document.querySelector('.ad-form-header__preview');
 
+  var fileChooserHousing = document.querySelector('#images');
+  var previewHousing = document.querySelector('.ad-form__photo');
 
-  fileChooserAvatar.addEventListener('change', function () {
-    var file = fileChooserAvatar.files[0];
+  var updatePreviewImage = function (fileInputElement, previewContainerElement) {
+    var file = fileInputElement.files[0];
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
       return fileName.endsWith(it);
     });
 
-    // var avatarPreview = document.createElement('img');
-    // previewAvatar.append(avatarPreview);
-    previewAvatar.width = 70;
-    previewAvatar.height = 70;
-    previewAvatar.style.borderRadius = '5px';
-
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        previewAvatar.src = reader.result;
-      });
-
-      reader.readAsDataURL(file);
+    if (!matches) {
+      return;
     }
-  });
 
-  fileChooserImages.addEventListener('change', function () {
-    var file = fileChooserImages.files[0];
-    var fileName = file.name.toLowerCase();
+    previewContainerElement.querySelectorAll('img').forEach(window.util.removeElement);
 
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
+    var previewImg = document.createElement('img');
+    previewContainerElement.append(previewImg);
+    previewContainerElement.style.padding = 0;
+    previewImg.width = 70;
+    previewImg.height = 70;
+    previewImg.style.borderRadius = '5px';
+
+    var reader = new FileReader();
+
+    reader.addEventListener('load', function () {
+      previewImg.src = reader.result;
     });
 
-    var picturePreview = document.createElement('img');
-    previewImages.append(picturePreview);
-    picturePreview.width = 70;
-    picturePreview.height = 70;
-    picturePreview.style.borderRadius = '5px';
+    reader.readAsDataURL(file);
+  };
 
+  var onAvatarFileChooserChange = function () {
+    updatePreviewImage(fileChooserAvatar, previewAvatar);
+  };
 
-    if (matches) {
-      var reader = new FileReader();
-      reader.addEventListener('load', function () {
-        picturePreview.src = reader.result;
-      });
+  fileChooserAvatar.addEventListener('change', onAvatarFileChooserChange);
 
-      reader.readAsDataURL(file);
-    }
-  });
+  var onHousingFileChooserChange = function () {
+    updatePreviewImage(fileChooserHousing, previewHousing);
+  };
+
+  fileChooserHousing.addEventListener('change', onHousingFileChooserChange);
 
 })();
