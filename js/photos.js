@@ -35,7 +35,7 @@
 
     var previewImg = document.createElement('img');
     previewContainerElement.append(previewImg);
-    previewContainerElement.style.padding = 0;
+    // previewContainerElement.style.padding = 0;
     previewImg.width = 70;
     previewImg.height = 70;
     previewImg.style.borderRadius = '5px';

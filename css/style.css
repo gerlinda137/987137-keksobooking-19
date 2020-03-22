@@ -531,7 +531,6 @@ fieldset {
           align-items: center;
 
   margin-right: 10px;
-  padding: 0 15px;
 
   width: 70px;
   height: 70px;
@@ -540,6 +539,10 @@ fieldset {
 
   border-radius: 5px;
   background-color: #dadada;
+}
+
+.keks-preview {
+  margin: 0 15px;
 }
 
 .ad-form__field {
