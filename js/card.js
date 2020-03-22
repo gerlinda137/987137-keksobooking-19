@@ -143,7 +143,7 @@
       card.remove();
       card = null;
     }
-    document.body.removeEventListener('keydown', onCardKeydown);
+    document.removeEventListener('keydown', onCardKeydown);
 
     if (window.util.isFunction(onRemove)) {
       onRemove();
