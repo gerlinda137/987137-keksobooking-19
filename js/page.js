@@ -33,6 +33,7 @@
   };
 
   var deactivatePage = function () {
+    window.photos.resetAllImages();
     window.notification.disable();
     window.map.disable();
     window.mainPin.reset();
@@ -53,7 +54,7 @@
     for (var i = 0; i < adverts.length; i++) {
       var advert = adverts[i];
 
-      if (window.filters.check(advert)) {
+      if (window.filters.checkOption(advert)) {
         filteredAdverts.push(advert);
       }
       if (filteredAdverts.length === MAX_PINS_ALLOWED) {
