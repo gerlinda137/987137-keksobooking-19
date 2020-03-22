@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var FilterOptions = {
+  var FilterOption = {
     ANY: 'any',
     LOW: 'low',
     MIDDLE: 'middle',
@@ -24,29 +24,29 @@
   var onChange = null;
 
   var filterHousingType = function (advert) {
-    return housingType.value === FilterOptions.ANY || housingType.value === advert.offer.type;
+    return housingType.value === FilterOption.ANY || housingType.value === advert.offer.type;
   };
 
   var filterHousingPrice = function (advert) {
-    if (housingPrice.value === FilterOptions.LOW) {
+    if (housingPrice.value === FilterOption.LOW) {
       return advert.offer.price <= PriceRange.MAX_LOW;
     }
-    if (housingPrice.value === FilterOptions.MIDDLE) {
+    if (housingPrice.value === FilterOption.MIDDLE) {
       return advert.offer.price >= PriceRange.MIN_MIDDLE && advert.offer.price <= PriceRange.MIN_MIDDLE;
     }
-    if (housingPrice.value === FilterOptions.HIGH) {
+    if (housingPrice.value === FilterOption.HIGH) {
       return advert.offer.price >= PriceRange.MIN_HIGH;
     } else {
-      return housingPrice.value === FilterOptions.ANY;
+      return housingPrice.value === FilterOption.ANY;
     }
   };
 
   var filterHousingRooms = function (advert) {
-    return housingRooms.value === FilterOptions.ANY || parseInt(housingRooms.value, 10) === advert.offer.rooms;
+    return housingRooms.value === FilterOption.ANY || parseInt(housingRooms.value, 10) === advert.offer.rooms;
   };
 
   var filterHousingGuests = function (advert) {
-    return housingGuests.value === FilterOptions.ANY || parseInt(housingGuests.value, 10) === advert.offer.guests;
+    return housingGuests.value === FilterOption.ANY || parseInt(housingGuests.value, 10) === advert.offer.guests;
   };
 
   var filterHousingFeatures = function (advert) {
