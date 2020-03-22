@@ -36,9 +36,8 @@
     }
     if (housingPrice.value === FilterOption.HIGH) {
       return advert.offer.price >= PriceRange.MIN_HIGH;
-    } else {
-      return housingPrice.value === FilterOption.ANY;
     }
+    return housingPrice.value === FilterOption.ANY;
   };
 
   var filterHousingRooms = function (advert) {

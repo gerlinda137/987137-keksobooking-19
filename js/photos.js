@@ -40,7 +40,7 @@
 
   var resetHousingImage = function () {
     previewHousing.classList.add('visually-hidden');
-    previewHousing.removeAttribute('src');
+    previewHousing.src = '';
   };
 
   var resetAllImages = function () {
