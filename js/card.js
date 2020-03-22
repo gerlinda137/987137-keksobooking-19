@@ -11,18 +11,13 @@
   };
 
   var removeLiWithoutAnyFeature = function (features, featuresElements) {
-    for (var i = 0; i < featuresElements.length; i++) {
-      var found = false;
-      for (var j = 0; j < features.length; j++) {
-        if (featuresElements[i].classList.contains('popup__feature--' + features[j])) {
-          found = true;
-          break;
-        }
+    featuresElements.forEach(function (element) {
+      if (!features.some(function (feature) {
+        return element.classList.contains('popup__feature--' + feature);
+      })) {
+        element.remove();
       }
-      if (!found) {
-        featuresElements[i].remove();
-      }
-    }
+    });
   };
 
   var renderCardPhotos = function (card, photosUrls) {
