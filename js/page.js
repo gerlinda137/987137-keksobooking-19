@@ -33,7 +33,7 @@
   };
 
   var deactivatePage = function () {
-    // window.photos.resetImageForm();
+    window.photos.resetAllImages();
     window.notification.disable();
     window.map.disable();
     window.mainPin.reset();
