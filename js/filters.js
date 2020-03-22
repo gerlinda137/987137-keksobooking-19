@@ -70,9 +70,9 @@
           && filterHousingFeatures(advert);
   };
 
-  var onMapFiltersChange = window.debounce(function (evt) {
+  var onMapFiltersChange = window.debounce(function () {
     if (window.util.isFunction(onChange)) {
-      onChange(evt.target.value);
+      onChange();
     }
   });
 
