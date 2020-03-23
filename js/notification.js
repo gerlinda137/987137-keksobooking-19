@@ -83,11 +83,15 @@
   syncSelectOptions(filterInputTimeIn, filterInputTimeOut);
   syncSelectOptions(filterInputTimeOut, filterInputTimeIn);
 
-  var onFilterInputTypeChange = function () {
+  var setAccommodationMinPrice = function () {
     var minPrice = accommodationToMinPrice[filterInputType.value];
 
     filterInputPrice.min = minPrice;
     filterInputPrice.placeholder = minPrice;
+  };
+
+  var onFilterInputTypeChange = function () {
+    setAccommodationMinPrice();
   };
 
   filterInputType.addEventListener('change', onFilterInputTypeChange);
@@ -115,9 +119,11 @@
       adForm.classList.remove('ad-form--disabled');
     },
     disable: function () {
+      adForm.reset();
+      setAccommodationMinPrice();
+      validateRoomsAndCapacity();
       inputs.forEach(window.util.setDisabled);
       adForm.classList.add('ad-form--disabled');
-      adForm.reset();
     },
     setOnReset: function (callback) {
       onReset = callback;
